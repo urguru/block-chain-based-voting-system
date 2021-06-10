@@ -40,8 +40,16 @@ const ConstituencySchema = new Schema(
 	},
 	{
 		timestamps: true,
+		toObject: { virtuals: true },
+		toJSON: { virtuals: true },
 	}
 );
+
+ConstituencySchema.virtual("candidates", {
+	ref: "Candidate",
+	localField: "constituencyId",
+	foreignField: "contestingConstituencyId",
+});
 
 const Constituency = mongoose.model("Constituency", ConstituencySchema);
 

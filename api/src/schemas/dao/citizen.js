@@ -56,8 +56,8 @@ CitizenSchema.virtual("pollingBooth", {
 	ref: "PollingBooth",
 	localField: "pollingBoothId",
 	foreignField: "pollingBoothId",
-	justOne: true,
-});
+	justOne:true,
+})
 
 const Citizen = mongoose.model("Citizen", CitizenSchema);
 

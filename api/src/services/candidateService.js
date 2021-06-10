@@ -1,7 +1,13 @@
-const { ER_INVALID_CONSTITUENCY, ER_CANDIDATE_ALREADY_EXISTS, ER_INVALID_VOTER_ID } = require("../common/errors");
+const {
+	ER_INVALID_CONSTITUENCY,
+	ER_CANDIDATE_ALREADY_EXISTS,
+	ER_INVALID_VOTER_ID,
+	ER_INVALID_CANDIDATE_VOTER_ID,
+} = require("../common/errors");
 const citizenRepository = require("../repositories/citizenRepository");
 const candidateRepository = require("../repositories/candidateRepository");
 const constituencyRepository = require("../repositories/constituencyRepository");
+const { electionStatus } = require("../common/constants");
 
 const createCandidate = async (candidate) => {
 	const existingConstituency = await constituencyRepository.getConstituencyByConstituencyId(candidate.contestingConstituencyId);
@@ -11,25 +17,7 @@ const createCandidate = async (candidate) => {
 			const existingCandidate = await candidateRepository.getCandidateByVoterId(candidate.voterId);
 			if (!existingCandidate) {
 				const result = await candidateRepository.createCandidate(candidate);
-				await existingCitizen.populate("constituency").execPopulate();
-				const structuredResult = {
-					voterId: result.voterId,
-					citizen: {
-						name: existingCitizen.name,
-						gender: existingCitizen.gender,
-						constituency: {
-							constituencyId: existingCitizen.constituency.constituencyId,
-							name: existingCitizen.constituency.name,
-						},
-					},
-					contestingConstituency: {
-						constituencyId: existingConstituency.constituencyId,
-						name: existingConstituency.name,
-					},
-					createdAt: result.createdAt,
-					updatedAt: result.updatedAt,
-				};
-				return structuredResult;
+				return await getClientPresentableResult(result, electionStatus.NOT_STARTED);
 			} else {
 				throw ER_CANDIDATE_ALREADY_EXISTS;
 			}
@@ -41,6 +29,45 @@ const createCandidate = async (candidate) => {
 	}
 };
 
+const getCandidateByVoterId = async (voterId, status) => {
+	const candidate = await candidateRepository.getCandidateByVoterId(voterId);
+	if (candidate) {
+		return await getClientPresentableResult(candidate, status);
+	} else {
+		throw ER_INVALID_CANDIDATE_VOTER_ID;
+	}
+};
+
+const getClientPresentableResult = async (candidate, status) => {
+	await candidate.populate("citizen").execPopulate();
+	await candidate.citizen.populate("constituency").execPopulate();
+	await candidate.populate("contestingConstituency").execPopulate();
+	const structuredCandidate = {
+		voterId: candidate.voterId,
+		citizen: {
+			name: candidate.citizen.name,
+			gender: candidate.citizen.gender,
+			constituency: {
+				constituencyId: candidate.citizen.constituency.constituencyId,
+				name: candidate.citizen.constituency.name,
+			},
+		},
+		contestingConstituency: {
+			constituencyId: candidate.contestingConstituency.constituencyId,
+			name: candidate.contestingConstituency.name,
+		},
+		createdAt: candidate.createdAt,
+		updatedAt: candidate.updatedAt,
+	};
+	if (status != electionStatus.STARTED) {
+		structuredCandidate.maleVoteCount = candidate.malevoteCount;
+		structuredCandidate.femaleVoteCount = candidate.femaleVoteCount;
+		structuredCandidate.otherVoteCount = candidate.otherVoteCount;
+	}
+	return structuredCandidate;
+};
+
 module.exports = {
 	createCandidate,
+	getCandidateByVoterId,
 };

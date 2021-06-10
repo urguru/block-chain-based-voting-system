@@ -34,9 +34,21 @@ const AdminSchema = new Schema(
 			required: true,
 			trim: true,
 		},
+		pollingBoothId: {
+			type: String,
+			trim: true,
+			required: true,
+		},
 	},
 	{ timestamps: true }
 );
+
+AdminSchema.virtual("pollingBooth", {
+	ref: "PollingBooth",
+	localField: "pollingBoothId",
+	foreignField: "pollingBoothId",
+	justOne: true,
+});
 
 AdminSchema.pre("save", async function (next) {
 	const admin = this;

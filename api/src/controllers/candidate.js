@@ -1,5 +1,5 @@
-const candidateService = require('../services/candidateService');
-const logger = require('../logging/logger');
+const candidateService = require("../services/candidateService");
+const logger = require("../logging/logger");
 const { roles } = require("../common/constants");
 const { hasAnyRole } = require("../common/auth");
 const { ER_FORBIDDEN } = require("../common/errors");
@@ -22,6 +22,18 @@ const createCandidate = async (req, res, next) => {
 	}
 };
 
+const getCandidateByVoterId = async (req, res, next) => {
+	const { voterId, electionStatus } = req.params;
+	logger.info(`CandidateController::getCandidateByVoterId Received request with voterId:${voterId}`);
+	try {
+		const result = await candidateService.getCandidateByVoterId(voterId, electionStatus);
+		res.status(OK).json(result);
+	} catch (err) {
+		next(err);
+	}
+};
+
 module.exports = {
     createCandidate,
-}
+    getCandidateByVoterId
+};

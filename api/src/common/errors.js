@@ -70,6 +70,60 @@ const ER_POLLINGBOOTH_ALREADY_EXISTS = new AppError({
 	statusCode: BAD_REQUEST,
 });
 
+const ER_INVALID_CANDIDATE_VOTER_ID = new AppError({
+	name: "ER_INVALID_CANDIDATE_VOTER_ID",
+	message: "There does not exist any candidate with the given voterId",
+	statusCode: BAD_REQUEST,
+});
+
+const ER_CANNOT_VOTE = new AppError({
+	name: "ER_CANNOT_VOTE",
+	message: "You cannot vote for the candidate as you and the candidate do not belong to same constituency",
+	statusCode: BAD_REQUEST,
+});
+
+const ER_ALREADY_VOTED = new AppError({
+	name: "ER_ALREADY_VOTED",
+	message: "The candidate with the given voterId has already casted his vote",
+	statusCode: BAD_REQUEST,
+});
+
+const ER_INVALID_ELECTION_STATUS_UPDATE_REQUEST = new AppError({
+	name: "ER_INVALID_ELECTION_STATUS_UPDATE_REQUEST",
+	message: "Invalid update requested for election status",
+	statusCode: BAD_REQUEST,
+});
+
+const ER_ELECTION_NOT_IN_STARTED_STATE = new AppError({
+	name: "ER_ELECTION_NOT_IN_STARTED_STATE",
+	message: "The election state is not in started state. It is either not started/completed",
+	statusCode: BAD_REQUEST,
+});
+
+const ER_ELECTION_NOT_IN_NOT_STARTED_STATE = new AppError({
+	name: "ER_ELECTION_NOT_IN_NOT_STARTED_STATE",
+	message: "The election state is not in not started state. It is either started/completed",
+	statusCode: BAD_REQUEST,
+});
+
+const ER_ELECTION_NOT_IN_COMPLETED_STATE = new AppError({
+	name: "ER_ELECTION_NOT_IN_COMPLETED_STATE",
+	message: "The election state is not in completed state. It is either started/not started",
+	statusCode: BAD_REQUEST,
+});
+
+const ER_ADMIN_WTH_EMAIL_ID_ALREADY_EXISTS = new AppError({
+	name: "ER_ADMIN_WTH_EMAIL_ID_ALREADY_EXISTS",
+	message: "An admin already exists with the given emailId",
+	statusCode: BAD_REQUEST,
+});
+
+const ER_INVALID_POLLINGBOOTH_ID = new AppError({
+	name: "ER_INVALID_POLLINGBOOTH_ID",
+	message: "There does not exist any polling booth with the given pollingBoothId",
+	statusCode: BAD_REQUEST,
+});
+
 module.exports = {
 	ER_FORBIDDEN,
 	ER_AUTHENTICATION_INFO_NOT_FOUND,
@@ -81,4 +135,13 @@ module.exports = {
 	ER_CANDIDATE_ALREADY_EXISTS,
 	ER_INVALID_VOTER_ID,
 	ER_POLLINGBOOTH_ALREADY_EXISTS,
+	ER_INVALID_CANDIDATE_VOTER_ID,
+	ER_CANNOT_VOTE,
+	ER_ALREADY_VOTED,
+	ER_INVALID_ELECTION_STATUS_UPDATE_REQUEST,
+	ER_ELECTION_NOT_IN_STARTED_STATE,
+	ER_ELECTION_NOT_IN_NOT_STARTED_STATE,
+	ER_ELECTION_NOT_IN_COMPLETED_STATE,
+	ER_ADMIN_WTH_EMAIL_ID_ALREADY_EXISTS,
+	ER_INVALID_POLLINGBOOTH_ID,
 };

@@ -35,7 +35,19 @@ const loginAdmin = async (req, res, next) => {
 	}
 };
 
+const getAdminByPollingBoothId = async (req, res, next) => {
+	const { pollingBoothId } = req.params;
+	logger.info(`AdminController::getAdminByPollingBoothId Received request with voterId:${pollingBoothId}`);
+	try {
+		const result = await adminService.getAdminByPollingBoothId(pollingBoothId);
+		res.status(OK).json(result);
+	} catch (err) {
+		next(err);
+	}
+};
+
 module.exports = {
 	createAdmin,
 	loginAdmin,
+	getAdminByPollingBoothId,
 };
