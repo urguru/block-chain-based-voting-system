@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const ConstituencySchema = new Schema(
 	{
 		constituencyId: {
-			type: Number,
+			type: String,
 			required: true,
 			unique: true,
 		},
