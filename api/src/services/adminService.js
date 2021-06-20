@@ -28,6 +28,13 @@ const loginAdmin = async (email, password) => {
 	const jwtToken = generateAuthToken(payload);
 	return {
 		token: jwtToken,
+		admin: {
+			name: admin.name,
+			gender: admin.gender,
+			role: admin.role,
+			email: admin.email,
+			pollingBoothId: admin.pollingBoothId,
+		}
 	};
 };
 

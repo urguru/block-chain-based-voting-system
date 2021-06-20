@@ -1,0 +1,9 @@
+const ADMIN_LOG_IN = "ADMIN_LOG_IN";
+const ADMIN_LOG_OUT = "ADMIN_LOG_OUT";
+const TOGGLE_SIDE_BAR = "TOGGLE_SIDE_BAR";
+
+export default {
+    ADMIN_LOG_IN,
+    ADMIN_LOG_OUT,
+    TOGGLE_SIDE_BAR,
+}

@@ -1,5 +1,5 @@
 const _ = require("lodash");
-const { ER_CONSTITUENCY_ALREADY_EXISTS } = require("../common/errors");
+const { ER_CONSTITUENCY_ALREADY_EXISTS, ER_INVALID_CONSTITUENCY } = require("../common/errors");
 const constituencyRepository = require("../repositories/constituencyRepository");
 const { electionStatus } = require("../common/constants");
 
