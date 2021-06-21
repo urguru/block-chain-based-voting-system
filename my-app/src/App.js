@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import history from './history';
 import { PrivateRoute } from './common/router';
+import { connectToNetwork, loadContract } from './actions/ethereumActions';
 
 import Home from './pages/homePage';
 import AdminLogin from './pages/adminLoginPage';
@@ -14,27 +15,43 @@ import AddConstituency from './pages/addConstituencyPage';
 import Error from './pages/errorPage';
 import HeaderComponent from './components/Header';
 import SidebarComponent from './components/Sidebar';
+import AddCitizen from './pages/addCitizenPage';
 
-const App = (props) => {
-	return (
-		<div>
-			<Router history={history}>
-				<HeaderComponent />
-				<SidebarComponent />
-				<Switch>
-					<Route exact path="/" component={Home} />
-					<Route exact path="/login" component={AdminLogin} />
-					<PrivateRoute exact path="/dashboard" Component={Dashboard} isLoggedIn={props.auth.isLoggedIn} />
-					<PrivateRoute exact path="/addConstituency" Component={AddConstituency} isLoggedIn={props.auth.isLoggedIn} />
-					<Route default component={Error} />
-				</Switch>
-			</Router >
-		</div >
-	);
-};
+class App extends React.Component {
+	constructor() {
+		super();
+	}
 
-const mapStateToProps = (state) => {
-	return { auth: state.auth };
+	componentDidMount() {
+		this.props.loadContract();
+	}
+
+	render() {
+		return (
+			<div>
+				<Router history={history}>
+					<HeaderComponent />
+					<SidebarComponent />
+					<Switch>
+						<Route exact path="/" component={Home} />
+						<Route exact path="/login" component={AdminLogin} />
+						<PrivateRoute exact path="/dashboard" Component={Dashboard} isLoggedIn={this.props.auth.isLoggedIn} />
+						<PrivateRoute exact path="/addConstituency" Component={AddConstituency} isLoggedIn={this.props.auth.isLoggedIn} />
+						<PrivateRoute exact path="/addCitizen" Component={AddCitizen} isLoggedIn={this.props.auth.isLoggedIn} />
+						<Route default component={Error} />
+					</Switch>
+				</Router >
+			</div >
+		);
+	}
 }
 
-export default connect(mapStateToProps)(App);
+const mapStateToProps = (state) => {
+	return { auth: state.auth, ethereum: state.ethereum };
+}
+
+const mapActionsToProps = {
+	loadContract
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(App);
