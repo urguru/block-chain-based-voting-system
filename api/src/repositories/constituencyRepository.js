@@ -6,6 +6,7 @@ const createConstituency = async (constituency) => {
 };
 
 const getConstituencyByConstituencyId = async (constituencyId) => {
+	console.log(constituencyId);
 	const result = await Constituency.findOne({ constituencyId });
 	return result;
 };

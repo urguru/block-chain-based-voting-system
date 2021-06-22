@@ -2,6 +2,8 @@ import types from "../actions/types";
 
 const INITIAL_STATE = {
     sidebarOpen: false,
+    mainLoadingWindowState: false,
+    mainLoadinWindowText: '',
 };
 
 export default (state = { ...INITIAL_STATE }, action) => {

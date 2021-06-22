@@ -5,7 +5,6 @@ export const adminLogin = (email, password) => async (dispatch, getState) => {
     try {
         const response = await authClient.adminLogin(email, password);
         const data = response.data;
-        console.log(data);
         dispatch({ type: types.ADMIN_LOG_IN, payload: { isLoggedIn: true, token: data.token, admin: data.admin, error: '' } });
         window.location.href = "/";
     } catch (e) {

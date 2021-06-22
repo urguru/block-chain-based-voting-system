@@ -31,7 +31,7 @@ class Sidebar extends React.Component {
 
     generateListItem = (text, Icon, onClickFunction, link) => {
         return (
-            <ListItem button key={text} component={Link} to={link} onClick={onClickFunction}>
+            <ListItem button key={text} component={Link} to={link} disabled={!onClickFunction && !link} onClick={onClickFunction}>
                 <ListItemIcon> <Icon /> </ListItemIcon>
                 <ListItemText primary={text} />
             </ListItem>
@@ -45,8 +45,8 @@ class Sidebar extends React.Component {
 
     render() {
         const isLoginPage = window.location.pathname == "/login";
-        const isConnectedToNetwork = this.props.ethereum.isConnectedToNetwork;
-        const networkText = isConnectedToNetwork ? "Connected to network" : "Connect to network";
+        const isContractLoaded = this.props.contract.isContractLoaded;
+        const networkText = isContractLoaded ? "Connected to network" : "Connect to network";
         const { classes } = this.props;
         const list = () => (
             <div className={classes.list} role="presentation">
@@ -92,7 +92,7 @@ class Sidebar extends React.Component {
 const mapStateToProps = (state) => ({
     ui: state.ui,
     auth: state.auth,
-    ethereum: state.ethereum,
+    contract: state.contract,
 })
 
 const mapActionsToProps = {

@@ -1,7 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import { createCitizen } from '../actions/citizenActions';
-import { addCitizenContract } from '../actions/ethereumActions';
+import { addCitizen } from '../actions/citizenActions';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 // MUI Stuff
@@ -42,10 +41,10 @@ class AddCitizen extends React.Component {
     constructor() {
         super();
         this.state = {
-            voterId: '',
-            name: '',
-            gender: '',
-            constituencyId: '',
+            voterId: 'a',
+            name: 'a',
+            gender: 'a',
+            constituencyId: 'a',
             error: ''
         }
     }
@@ -66,8 +65,7 @@ class AddCitizen extends React.Component {
             gender: this.state.gender,
             constituencyId: this.state.constituencyId,
         }
-        this.props.addCitizenContract(this.state.voterId, this.state.constituencyId);
-        this.props.createCitizen(this.props.auth.token, citizen);
+        this.props.addCitizen(citizen);
     }
 
     handleChange = (event) => {
@@ -94,7 +92,7 @@ class AddCitizen extends React.Component {
                         <TextField id='constituencyId' name='constituencyId' type='text' label="Constituency ID" value={this.state.constituencyId} onChange={this.handleChange} fullWidth />
                         {error && <Typography variant="body2" className={classes.customError} >{error}</Typography>}
                         <Button type="submit" variant="contained" color="primary" className={classes.Button}>
-                            Create Citizen
+                            Add Citizen
                         </Button>
                     </form>
                 </Grid>
@@ -109,8 +107,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapActionsToProps = {
-    createCitizen,
-    addCitizenContract
+    addCitizen,
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(AddCitizen));

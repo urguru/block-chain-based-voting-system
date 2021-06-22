@@ -24,7 +24,7 @@ const CandidateSchema = new Schema(
 			default: 0,
 		},
 		contestingConstituencyId: {
-			type: Number,
+			type: String,
 			required: true,
 		},
 	},

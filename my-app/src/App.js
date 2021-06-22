@@ -6,20 +6,25 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import history from './history';
 import { PrivateRoute } from './common/router';
-import { connectToNetwork, loadContract } from './actions/ethereumActions';
+import { loadContract } from './actions/contractActions';
 
 import Home from './pages/homePage';
 import AdminLogin from './pages/adminLoginPage';
 import Dashboard from './pages/dashboardPage';
 import AddConstituency from './pages/addConstituencyPage';
+import AddCitizen from './pages/addCitizenPage';
 import Error from './pages/errorPage';
 import HeaderComponent from './components/Header';
 import SidebarComponent from './components/Sidebar';
-import AddCitizen from './pages/addCitizenPage';
+import MainLoadingWindowComponent from './components/MainLoadingWindow';
+
 
 class App extends React.Component {
 	constructor() {
 		super();
+		this.state = {
+			web3: null
+		}
 	}
 
 	componentDidMount() {
@@ -30,6 +35,7 @@ class App extends React.Component {
 		return (
 			<div>
 				<Router history={history}>
+					<MainLoadingWindowComponent />
 					<HeaderComponent />
 					<SidebarComponent />
 					<Switch>
@@ -47,7 +53,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-	return { auth: state.auth, ethereum: state.ethereum };
+	return { auth: state.auth, contract: state.contract };
 }
 
 const mapActionsToProps = {

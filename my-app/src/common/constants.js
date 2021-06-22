@@ -15,8 +15,16 @@ const electionStatus = {
     NOT_STARTED: "not started",
 };
 
+const mainLoadingWindowStates = {
+    LOADING: "loading",
+    SUCCESS: "success",
+    FAILURE: "failure",
+    CLOSEDE: "closed",
+}
+
 export default {
     gender,
     roles,
     electionStatus,
+    mainLoadingWindowStates
 };
