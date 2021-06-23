@@ -9,3 +9,4 @@ export const addCitizen = (citizen) => async (dispatch, getState) => {
     const con = await getState().contract.contract.methods.addConstituency("RAD").send({ from: mainAccount });
     console.log(con);
 }
+

@@ -10,9 +10,12 @@ import { loadContract } from './actions/contractActions';
 
 import Home from './pages/homePage';
 import AdminLogin from './pages/adminLoginPage';
+import AddCandidate from './pages/addCandidate';
 import Dashboard from './pages/dashboardPage';
 import AddConstituency from './pages/addConstituencyPage';
 import AddCitizen from './pages/addCitizenPage';
+import AddPollingBooth from './pages/addPollingBooth';
+
 import Error from './pages/errorPage';
 import HeaderComponent from './components/Header';
 import SidebarComponent from './components/Sidebar';
@@ -44,6 +47,9 @@ class App extends React.Component {
 						<PrivateRoute exact path="/dashboard" Component={Dashboard} isLoggedIn={this.props.auth.isLoggedIn} />
 						<PrivateRoute exact path="/addConstituency" Component={AddConstituency} isLoggedIn={this.props.auth.isLoggedIn} />
 						<PrivateRoute exact path="/addCitizen" Component={AddCitizen} isLoggedIn={this.props.auth.isLoggedIn} />
+						<PrivateRoute exact path="/addPollingBooth" Component={AddPollingBooth} isLoggedIn={this.props.auth.isLoggedIn} />
+						<PrivateRoute exact path="/addCandidate" Component={AddCandidate} isLoggedIn={this.props.auth.isLoggedIn} />
+						
 						<Route default component={Error} />
 					</Switch>
 				</Router >

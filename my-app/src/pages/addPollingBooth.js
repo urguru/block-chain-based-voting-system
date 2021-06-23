@@ -37,11 +37,11 @@ const styles = {
     }
 }
 
-class AddConstituency extends React.Component {
+class AddPollingBooth extends React.Component {
     constructor() {
         super();
         this.state = {
-            constituencyId: 'a',
+            pollingBoothId: 'a',
             name: 'a',
             
             error: ''
@@ -58,13 +58,13 @@ class AddConstituency extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const constituency= {
-            constituencyId: this.state.constituencyId,
+        const pollingBooth= {
+            pollingBoothId: this.state.pollingBoothId,
             name:this.state.name,
             
             
         }
-        this.props.addCandidate(constituency);
+        this.props.addCandidate(pollingBooth);
     }
 
     handleChange = (event) => {
@@ -82,20 +82,21 @@ class AddConstituency extends React.Component {
                 <Grid item sm />
                 <Grid item sm>
                     <Typography variant="h3" className={classes.pageTitle}>
-                        Add Constituency
+                        Add Polling Booth
                     </Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
                         
-                        <TextField id='constituencyId' name='constituencyId' type='text' label="Constituency ID" className={classes.textField} value={this.state.constituencyId} onChange={this.handleChange} fullWidth />
+                        <TextField id='pollingBoothId' name='pollingBoothId' type='text' label="Polling Booth ID" className={classes.textField} value={this.state.pollingBoothId} onChange={this.handleChange} fullWidth />
                         <TextField id='name' name='name' type='text' label="Name" className={classes.textField} value={this.state.name} onChange={this.handleChange} fullWidth />
                         
                         {error && <Typography variant="body2" className={classes.customError} >{error}</Typography>}
                         <Button type="submit" variant="contained" color="primary" className={classes.Button}>
-                            Add Constituency
+                            Add Polling Booth
                         </Button>
                     </form>
                 </Grid>
                 <Grid item sm />
+
             </Grid>
         )
     }
@@ -109,4 +110,4 @@ const mapActionsToProps = {
     
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(AddConstituency));
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(AddPollingBooth));
