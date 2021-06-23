@@ -2,9 +2,7 @@ import config from "../config";
 const axios = require('axios');
 
 const adminLogin = async (email, password) => {
-    console.log(config);
     const url = config.apiURL + '/v1/admin/login';
-    console.log(url);
     const data = {
         email, password
     };

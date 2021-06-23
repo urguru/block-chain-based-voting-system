@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
-import { toggleSidebar } from '../actions/uiActions';
+import { openSidebar } from '../actions/uiActions';
 
 const styles = {
     root: {
@@ -29,13 +29,12 @@ class Header extends React.Component {
 
     render() {
         const { classes } = this.props;
-        console.log(this.props.auth);
         return (
             <div className={classes.root}>
                 <AppBar position="static">
                     <Toolbar>
                         <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                            <MenuIcon onClick={this.props.toggleSidebar} />
+                            <MenuIcon onClick={this.props.openSidebar} />
                         </IconButton>
                         <Typography variant="h6" className={classes.title}>
                             Block Chain Based Voting System
@@ -53,7 +52,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapActionsToProps = {
-    toggleSidebar,
+    openSidebar
 }
 
 

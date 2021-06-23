@@ -45,16 +45,7 @@ class AddCitizen extends React.Component {
             name: 'a',
             gender: 'a',
             constituencyId: 'a',
-            error: ''
         }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        // if (nextProps.auth.error) {
-        //     //this.setState({ error: nextProps.auth.error })
-        // } else {
-        //     //this.setState({ error: '' })
-        // }
     }
 
     handleSubmit = (event) => {
@@ -65,7 +56,7 @@ class AddCitizen extends React.Component {
             gender: this.state.gender,
             constituencyId: this.state.constituencyId,
         }
-        this.props.addCitizen(citizen);
+        this.props.addCitizen(citizen, this.props);
     }
 
     handleChange = (event) => {
@@ -77,7 +68,6 @@ class AddCitizen extends React.Component {
     }
     render() {
         const { classes } = this.props
-        const { error } = this.state
         return (
             <Grid container className={classes.form}>
                 <Grid item sm />
@@ -90,7 +80,6 @@ class AddCitizen extends React.Component {
                         <TextField id='voterId' name='voterId' type='text' label="Voter ID" className={classes.textField} value={this.state.voterId} onChange={this.handleChange} fullWidth />
                         <TextField id='gender' name='gender' type='text' label="Gender" value={this.state.gender} onChange={this.handleChange} fullWidth />
                         <TextField id='constituencyId' name='constituencyId' type='text' label="Constituency ID" value={this.state.constituencyId} onChange={this.handleChange} fullWidth />
-                        {error && <Typography variant="body2" className={classes.customError} >{error}</Typography>}
                         <Button type="submit" variant="contained" color="primary" className={classes.Button}>
                             Add Citizen
                         </Button>

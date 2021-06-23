@@ -7,10 +7,10 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import history from './history';
 import { PrivateRoute } from './common/router';
 import { loadContract } from './actions/contractActions';
+import { closeSidebar } from './actions/uiActions';
 
 import Home from './pages/homePage';
 import AdminLogin from './pages/adminLoginPage';
-import Dashboard from './pages/dashboardPage';
 import AddConstituency from './pages/addConstituencyPage';
 import AddCitizen from './pages/addCitizenPage';
 import Error from './pages/errorPage';
@@ -28,6 +28,7 @@ class App extends React.Component {
 	}
 
 	componentDidMount() {
+		this.props.closeSidebar();
 		this.props.loadContract();
 	}
 
@@ -41,7 +42,6 @@ class App extends React.Component {
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route exact path="/login" component={AdminLogin} />
-						<PrivateRoute exact path="/dashboard" Component={Dashboard} isLoggedIn={this.props.auth.isLoggedIn} />
 						<PrivateRoute exact path="/addConstituency" Component={AddConstituency} isLoggedIn={this.props.auth.isLoggedIn} />
 						<PrivateRoute exact path="/addCitizen" Component={AddCitizen} isLoggedIn={this.props.auth.isLoggedIn} />
 						<Route default component={Error} />
@@ -57,7 +57,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapActionsToProps = {
-	loadContract
+	loadContract,
+	closeSidebar
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(App);
