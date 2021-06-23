@@ -37,26 +37,17 @@ const styles = {
 }
 
 class AdminLogin extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             email: "",
             password: "",
-            error: "",
-        }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.auth.error) {
-            this.setState({ error: nextProps.auth.error })
-        } else {
-            this.setState({ error: '' })
         }
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.adminLogin(this.state.email, this.state.password);
+        this.props.adminLogin(this.state.email, this.state.password, this.props);
     }
 
     handleChange = (event) => {
@@ -77,7 +68,6 @@ class AdminLogin extends Component {
                     <form noValidate onSubmit={this.handleSubmit}>
                         <TextField id='email' name='email' type='email' label="Email" onChange={this.handleChange} fullWidth />
                         <TextField id='password' name='password' type='password' label="Password" className={classes.textField} value={this.state.password} onChange={this.handleChange} fullWidth />
-                        {error && <Typography variant="body2" className={classes.customError} >{error}</Typography>}
                         <Button type="submit" variant="contained" color="primary" className={classes.Button}>
                             Login
                         </Button>

@@ -19,7 +19,7 @@ const mainLoadingWindowStates = {
     LOADING: "loading",
     SUCCESS: "success",
     FAILURE: "failure",
-    CLOSEDE: "closed",
+    CLOSED: "closed",
 }
 
 export default {

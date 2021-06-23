@@ -11,10 +11,10 @@ import LocationCity from '@material-ui/icons/LocationCity'
 import AccountBalance from '@material-ui/icons/AccountBalance';
 import AddBox from '@material-ui/icons/AddBox';
 import PersonAdd from '@material-ui/icons/PersonAdd';
-import { toggleSidebar } from '../actions/uiActions';
+import { closeSidebar } from '../actions/uiActions';
 import { adminLogout } from '../actions/authActions';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import constants from '../common/constants';
 
@@ -28,19 +28,26 @@ const styles = {
 };
 
 class Sidebar extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
     generateListItem = (text, Icon, onClickFunction, link) => {
         return (
-            <ListItem button key={text} component={Link} to={link} disabled={!onClickFunction && !link} onClick={onClickFunction}>
+            <ListItem button key={text} component={Link} to={link} disabled={onClickFunction == this.sideBarItemClickedEvent && !link} onClick={onClickFunction}>
                 <ListItemIcon> <Icon /> </ListItemIcon>
                 <ListItemText primary={text} />
             </ListItem>
         )
     }
 
+    sideBarItemClickedEvent = () => {
+        this.props.closeSidebar();
+    }
+
     adminLogoutFunction = () => {
-        this.props.adminLogout();
-        this.props.toggleSidebar();
+        this.sideBarItemClickedEvent();
+        this.props.adminLogout(this.props);
     }
 
     render() {
@@ -53,7 +60,7 @@ class Sidebar extends React.Component {
                 <List>
                     {
                         [
-                            this.generateListItem(networkText, AccountBalance, null, null),
+                            this.generateListItem(networkText, AccountBalance, this.sideBarItemClickedEvent, null),
                         ]
                     }
                 </List>
@@ -62,12 +69,12 @@ class Sidebar extends React.Component {
                     {
                         [
                             this.props.auth.isLoggedIn && this.generateListItem("Logout", ExitToApp, this.adminLogoutFunction), null,
-                            !this.props.auth.isLoggedIn && !isLoginPage && this.generateListItem("Login", Computer, null, '/login'),
-                            this.generateListItem("Find constituency", LocationCity),
+                            !this.props.auth.isLoggedIn && !isLoginPage && this.generateListItem("Login", Computer, this.sideBarItemClickedEvent, '/login'),
+                            this.generateListItem("Find constituency", LocationCity, this.sideBarItemClickedEvent),
                             this.props.auth.isLoggedIn && this.props.auth.admin.role == constants.roles.CEC
-                            && this.generateListItem("Add constituency", AddBox, null, '/addConstituency'),
+                            && this.generateListItem("Add constituency", AddBox, this.sideBarItemClickedEvent, '/addConstituency'),
                             this.props.auth.isLoggedIn && (this.props.auth.admin.role == constants.roles.CEC || this.props.auth.admin.role == constants.roles.PBO)
-                            && this.generateListItem("Add citizen", PersonAdd, null, '/addCitizen'),
+                            && this.generateListItem("Add citizen", PersonAdd, this.sideBarItemClickedEvent, '/addCitizen'),
                         ]
                     }
                 </List>
@@ -78,7 +85,7 @@ class Sidebar extends React.Component {
             <div>
                 {
                     <React.Fragment key="left">
-                        <Drawer anchor="left" open={this.props.ui.sidebarOpen} onClose={this.props.toggleSidebar}>
+                        <Drawer anchor="left" open={this.props.ui.sidebarOpen} onClose={this.props.closeSidebar}>
                             {list()}
                         </Drawer>
                     </React.Fragment>
@@ -96,9 +103,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapActionsToProps = {
-    toggleSidebar,
     adminLogout,
+    closeSidebar
 }
 
 
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Sidebar));
+export default withRouter(connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Sidebar)));
