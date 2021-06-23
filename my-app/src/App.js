@@ -17,7 +17,6 @@ import AddConstituency from './pages/addConstituencyPage';
 import AddCitizen from './pages/addCitizenPage';
 import AddPollingBooth from './pages/addPollingBooth';
 import AddCandidate from './pages/addCandidate';
-import Dashboard from './pages/dashboardPage';
 
 import Error from './pages/errorPage';
 import HeaderComponent from './components/Header';

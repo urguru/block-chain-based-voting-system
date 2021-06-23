@@ -16,6 +16,41 @@ const addCitizen = async (ACCESS_TOKEN, citizen) => {
     return response;
 }
 
+const getCitizenByVoterId = async (ACCESS_TOKEN, voterId) => {
+    const url = config.apiURL + `/v1/citizen/${voterId}`;
+    const options = {
+        headers: {
+            'content-type': 'application/json',
+            'Authorization': 'Bearer ' + ACCESS_TOKEN,
+        },
+        timeout: 10000,
+        responseType: 'json',
+        responseEncoding: 'utf8',
+    };
+    const response = await axios.get(url, options);
+    return response;
+}
+
+const castVote = async (ACCESS_TOKEN, voterId, candidateVoterId) => {
+    const url = config.apiURL + `/v1/citizen/${voterId}/vote`;
+    const options = {
+        headers: {
+            'content-type': 'application/json',
+            'Authorization': 'Bearer ' + ACCESS_TOKEN,
+        },
+        timeout: 10000,
+        responseType: 'json',
+        responseEncoding: 'utf8',
+    };
+    const body = {
+        candidateVoterId
+    }
+    const response = await axios.post(url, body, options);
+    return response;
+}
+
 export default {
     addCitizen,
+    getCitizenByVoterId,
+    castVote,
 }
