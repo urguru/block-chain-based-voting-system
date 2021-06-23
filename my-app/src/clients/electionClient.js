@@ -12,22 +12,22 @@ const updateElectionStatus = async (ACCESS_TOKEN, electionStatus) => {
         responseType: 'json',
         responseEncoding: 'utf8',
     };
-    const response = await axios.put(url,{electionStatus}, options);
+    const response = await axios.put(url, { electionStatus }, options);
     return response;
 }
-const getElectionStatus= async () => {
+
+const getElectionStatus = async () => {
     const url = config.apiURL + '/v1/election';
     const options = {
         headers: {
             'content-type': 'application/json',
-            
+
         },
         timeout: 10000,
         responseType: 'json',
         responseEncoding: 'utf8',
     };
-
-    const response = await axios.get(url,options);
+    const response = await axios.get(url, options);
     return response;
 }
 

@@ -12,7 +12,6 @@ import { closeSidebar } from './actions/uiActions';
 import Home from './pages/homePage';
 import AdminLogin from './pages/adminLoginPage';
 
-
 import AddConstituency from './pages/addConstituencyPage';
 import AddCitizen from './pages/addCitizenPage';
 import AddPollingBooth from './pages/addPollingBooth';
@@ -22,7 +21,6 @@ import Error from './pages/errorPage';
 import HeaderComponent from './components/Header';
 import SidebarComponent from './components/Sidebar';
 import MainLoadingWindowComponent from './components/MainLoadingWindow';
-
 
 class App extends React.Component {
 	constructor() {
@@ -51,7 +49,6 @@ class App extends React.Component {
 						<PrivateRoute exact path="/addCitizen" Component={AddCitizen} isLoggedIn={this.props.auth.isLoggedIn} />
 						<PrivateRoute exact path="/addPollingBooth" Component={AddPollingBooth} isLoggedIn={this.props.auth.isLoggedIn} />
 						<PrivateRoute exact path="/addCandidate" Component={AddCandidate} isLoggedIn={this.props.auth.isLoggedIn} />
-						
 						<Route default component={Error} />
 					</Switch>
 				</Router >

@@ -1,5 +1,5 @@
 import types from "./types";
-import authClient from "../clients/authClient";
+import authClient from "../clients/adminClient";
 
 export const adminLogin = (email, password, props) => async (dispatch, getState) => {
     try {
