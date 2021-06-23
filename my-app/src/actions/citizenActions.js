@@ -27,3 +27,4 @@ export const addCitizen = (citizen, props) => async (dispatch, getState) => {
 
     }
 }
+

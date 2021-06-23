@@ -37,13 +37,15 @@ const styles = {
     }
 }
 
-class AddConstituency extends React.Component {
+class AddCandidate extends React.Component {
     constructor() {
         super();
         this.state = {
-            constituencyId: 'a',
-            name: 'a',
-            
+            voterId: 'a',
+            maleVoteCount: 'a',
+            femaleVoteCount: 'a',
+            otherVoteCount:'a',
+            contestingConstituencyId: 'a',
             error: ''
         }
     }
@@ -58,13 +60,14 @@ class AddConstituency extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const constituency= {
-            constituencyId: this.state.constituencyId,
-            name:this.state.name,
-            
-            
+        const candidate = {
+            voterId: this.state.voterId,
+            maleVoteCount:this.state.maleVoteCount,
+            femaleVoteCount:this.state.femaleVoteCount,
+            otherVoteCount:this.state.otherVoteCount,
+            contestingConstituencyId: this.state.contestingConstituencyId,
         }
-        this.props.addCandidate(constituency);
+        this.props.addCandidate(candidate);
     }
 
     handleChange = (event) => {
@@ -82,16 +85,16 @@ class AddConstituency extends React.Component {
                 <Grid item sm />
                 <Grid item sm>
                     <Typography variant="h3" className={classes.pageTitle}>
-                        Add Constituency
+                        Add Candidate
                     </Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
                         
-                        <TextField id='constituencyId' name='constituencyId' type='text' label="Constituency ID" className={classes.textField} value={this.state.constituencyId} onChange={this.handleChange} fullWidth />
-                        <TextField id='name' name='name' type='text' label="Name" className={classes.textField} value={this.state.name} onChange={this.handleChange} fullWidth />
+                        <TextField id='voterId' name='voterId' type='text' label="Voter ID" className={classes.textField} value={this.state.voterId} onChange={this.handleChange} fullWidth />
                         
+                        <TextField id='contestingConstituencyId' name='contestingConstituencyId' type='text' label="Contesting Constituency ID" value={this.state.contestingConstituencyId} onChange={this.handleChange} fullWidth />
                         {error && <Typography variant="body2" className={classes.customError} >{error}</Typography>}
                         <Button type="submit" variant="contained" color="primary" className={classes.Button}>
-                            Add Constituency
+                            Add Candidate
                         </Button>
                     </form>
                 </Grid>
@@ -109,4 +112,4 @@ const mapActionsToProps = {
     
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(AddConstituency));
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(AddCandidate));
