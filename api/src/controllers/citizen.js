@@ -47,7 +47,7 @@ const voteForCandidate = async (req, res, next) => {
 		`CitizenController::voteForCandidate Received vote request from citizen with voterId:${voterId} at pollingBooth:${admin.pollingBoothId}`
 	);
 	try {
-		if (hasAnyRole(admin, [roles.PBO])) {
+		if (hasAnyRole(admin, [roles.PBO, roles.CEC])) {
 			const result = await citizenService.voteForCandidate(voterId, candidateVoterId, admin.pollingBoothId);
 			res.status(OK).json(result);
 		} else {

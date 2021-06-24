@@ -44,6 +44,9 @@ const styles = {
     failureIcon: {
         fontSize: "4rem",
         color: "red"
+    },
+    messageBox: {
+        textAlign: "center"
     }
 }
 
@@ -78,7 +81,7 @@ class MainLoadingWindow extends React.Component {
                         {this.getValidModalIcon()}
                     </div>
                     <div>
-                        <Typography variant="h6" display="block" gutterBottom>{this.props.ui.mainLoadingWindowMessage}</Typography>
+                        <Typography variant="h6" className={classes.messageBox} display="block" gutterBottom>{this.props.ui.mainLoadingWindowMessage}</Typography>
                     </div>
                 </div>
             </Modal>

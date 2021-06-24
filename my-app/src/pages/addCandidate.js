@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
-//import { addCitizen } from '../actions/citizenActions';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { addCandidate } from '../actions/candidateActions'
 
 // MUI Stuff
 import Grid from '@material-ui/core/Grid';
@@ -38,45 +38,29 @@ const styles = {
 }
 
 class AddCandidate extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            voterId: 'a',
-            maleVoteCount: 'a',
-            femaleVoteCount: 'a',
-            otherVoteCount:'a',
-            contestingConstituencyId: 'a',
-            error: ''
+            voterId: '',
+            contestingConstituencyId: '',
         }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        // if (nextProps.admin.error) {
-        //     //this.setState({ error: nextProps.admin.error })
-        // } else {
-        //     //this.setState({ error: '' })
-        // }
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
         const candidate = {
             voterId: this.state.voterId,
-            maleVoteCount:this.state.maleVoteCount,
-            femaleVoteCount:this.state.femaleVoteCount,
-            otherVoteCount:this.state.otherVoteCount,
             contestingConstituencyId: this.state.contestingConstituencyId,
         }
-        this.props.addCandidate(candidate);
+        this.props.addCandidate(candidate, this.props);
     }
 
     handleChange = (event) => {
-        console.log(event.target)
-        console.log(event.target.name + event.target.value);
         this.setState({
-            [event.target.name]: event.target.value
+            [event.target.name]: _.toUpper(event.target.value)
         })
     }
+
     render() {
         const { classes } = this.props
         const { error } = this.state
@@ -88,11 +72,8 @@ class AddCandidate extends React.Component {
                         Add Candidate
                     </Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
-                        
                         <TextField id='voterId' name='voterId' type='text' label="Voter ID" className={classes.textField} value={this.state.voterId} onChange={this.handleChange} fullWidth />
-                        
                         <TextField id='contestingConstituencyId' name='contestingConstituencyId' type='text' label="Contesting Constituency ID" value={this.state.contestingConstituencyId} onChange={this.handleChange} fullWidth />
-                        {error && <Typography variant="body2" className={classes.customError} >{error}</Typography>}
                         <Button type="submit" variant="contained" color="primary" className={classes.Button}>
                             Add Candidate
                         </Button>
@@ -105,11 +86,10 @@ class AddCandidate extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    admin: state.admin,
 })
 
 const mapActionsToProps = {
-    
+    addCandidate,
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(AddCandidate));

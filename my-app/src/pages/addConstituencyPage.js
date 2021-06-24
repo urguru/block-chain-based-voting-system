@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
-//import { addCitizen } from '../actions/citizenActions';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { addConstituency } from '../actions/constituencyAction';
 
 // MUI Stuff
 import Grid from '@material-ui/core/Grid';
@@ -38,42 +38,32 @@ const styles = {
 }
 
 class AddConstituency extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            constituencyId: 'a',
-            name: 'a',
-            
-            error: ''
+            constituencyId: '',
+            name: '',
         }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        // if (nextProps.admin.error) {
-        //     //this.setState({ error: nextProps.admin.error })
-        // } else {
-        //     //this.setState({ error: '' })
-        // }
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const constituency= {
+        const constituency = {
             constituencyId: this.state.constituencyId,
-            name:this.state.name,
-            
-            
+            name: this.state.name,
         }
-        this.props.addCandidate(constituency);
+        this.props.addConstituency(constituency, this.props);
     }
 
     handleChange = (event) => {
-        console.log(event.target)
-        console.log(event.target.name + event.target.value);
+        if (event.target.name == "constituencyId") {
+            event.target.value = _.toUpper(event.target.value);
+        }
         this.setState({
             [event.target.name]: event.target.value
         })
     }
+
     render() {
         const { classes } = this.props
         const { error } = this.state
@@ -85,11 +75,8 @@ class AddConstituency extends React.Component {
                         Add Constituency
                     </Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
-                        
                         <TextField id='constituencyId' name='constituencyId' type='text' label="Constituency ID" className={classes.textField} value={this.state.constituencyId} onChange={this.handleChange} fullWidth />
                         <TextField id='name' name='name' type='text' label="Name" className={classes.textField} value={this.state.name} onChange={this.handleChange} fullWidth />
-                        
-                        {error && <Typography variant="body2" className={classes.customError} >{error}</Typography>}
                         <Button type="submit" variant="contained" color="primary" className={classes.Button}>
                             Add Constituency
                         </Button>
@@ -102,11 +89,10 @@ class AddConstituency extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    admin: state.admin,
 })
 
 const mapActionsToProps = {
-    
+    addConstituency
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(AddConstituency));

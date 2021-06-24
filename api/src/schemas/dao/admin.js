@@ -21,6 +21,7 @@ const AdminSchema = new Schema(
 			type: String,
 			enum: _.values(roles),
 			required: true,
+			default: roles.PBO,
 		},
 		email: {
 			type: String,

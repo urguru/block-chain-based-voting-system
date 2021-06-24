@@ -17,7 +17,7 @@ const addCandidate = async (ACCESS_TOKEN, candidate) => {
 }
 
 const getCandidateByVoterId = async (voterId) => {
-    const url = config.apiURL + '/v1/candidate/' + voterID;
+    const url = config.apiURL + '/v1/candidate/' + voterId;
     const options = {
         headers: {
             'content-type': 'application/json',

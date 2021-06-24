@@ -39,6 +39,8 @@ contract Election {
 
     constructor() {
         cec = msg.sender;
+        pollingBooths.push(cec);
+        whitelistedPollingBooths[cec] = true;
         electionStatus = 0;
     }
 
@@ -69,6 +71,10 @@ contract Election {
     function whitelistPollingBooth(address _pollingBoothId) public {
         require(electionStatus == 0, "ER_ELECTION_NOT_IN_NOT_STARTED_STATE");
         require(cec == msg.sender, "ER_FORBIDDEN");
+        require(
+            whitelistedPollingBooths[_pollingBoothId] == false,
+            "ER_POLLINGBOOTH_ALREADY_EXISTS"
+        );
         pollingBooths.push(_pollingBoothId);
         whitelistedPollingBooths[_pollingBoothId] = true;
     }
@@ -148,8 +154,9 @@ contract Election {
             "ER_CANNOT_VOTE"
         );
         require(whitelistedPollingBooths[msg.sender] == true, "ER_FORBIDDEN");
-        Constituency storage constituency =
-            constituencies[constituencyMapping[citizen.constituencyId] - 1];
+        Constituency storage constituency = constituencies[
+            constituencyMapping[citizen.constituencyId] - 1
+        ];
 
         citizen.hasVoted = true;
         constituency.voteCount = constituency.voteCount + 1;
@@ -214,7 +221,7 @@ contract Election {
         return candidateVoteCount[candidateMapping[_candidateVoterId] - 1];
     }
 
-    function getElectionStatus() public view returns (uint32){
+    function getElectionStatus() public view returns (uint32) {
         return electionStatus;
     }
 

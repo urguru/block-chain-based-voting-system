@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
-//import { addCitizen } from '../actions/citizenActions';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { addPollingBooth } from '../actions/pollingBoothActions';
 
 // MUI Stuff
 import Grid from '@material-ui/core/Grid';
@@ -38,42 +38,32 @@ const styles = {
 }
 
 class AddPollingBooth extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            pollingBoothId: 'a',
-            name: 'a',
-            
-            error: ''
+            pollingBoothId: '',
+            name: '',
         }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        // if (nextProps.admin.error) {
-        //     //this.setState({ error: nextProps.admin.error })
-        // } else {
-        //     //this.setState({ error: '' })
-        // }
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const pollingBooth= {
+        const pollingBooth = {
             pollingBoothId: this.state.pollingBoothId,
-            name:this.state.name,
-            
-            
+            name: this.state.name,
         }
-        this.props.addCandidate(pollingBooth);
+        this.props.addPollingBooth(pollingBooth, this.props);
     }
 
     handleChange = (event) => {
-        console.log(event.target)
-        console.log(event.target.name + event.target.value);
+        if (event.target.name == "pollingBoothId") {
+            event.target.value = _.toLower(event.target.value);
+        }
         this.setState({
             [event.target.name]: event.target.value
         })
     }
+
     render() {
         const { classes } = this.props
         const { error } = this.state
@@ -85,18 +75,14 @@ class AddPollingBooth extends React.Component {
                         Add Polling Booth
                     </Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
-                        
                         <TextField id='pollingBoothId' name='pollingBoothId' type='text' label="Polling Booth ID" className={classes.textField} value={this.state.pollingBoothId} onChange={this.handleChange} fullWidth />
                         <TextField id='name' name='name' type='text' label="Name" className={classes.textField} value={this.state.name} onChange={this.handleChange} fullWidth />
-                        
-                        {error && <Typography variant="body2" className={classes.customError} >{error}</Typography>}
                         <Button type="submit" variant="contained" color="primary" className={classes.Button}>
                             Add Polling Booth
                         </Button>
                     </form>
                 </Grid>
                 <Grid item sm />
-
             </Grid>
         )
     }
@@ -107,7 +93,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapActionsToProps = {
-    
+    addPollingBooth,
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(AddPollingBooth));

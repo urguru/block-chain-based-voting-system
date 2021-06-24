@@ -1,16 +1,16 @@
-import React from 'react';
-import _ from 'lodash';
-import { addCitizen } from '../actions/citizenActions';
+import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
+import _ from 'lodash';
 
 // MUI Stuff
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
 
 //Redux
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
+import { addAdmin } from '../actions/adminActions';
 
 const styles = {
     form: {
@@ -37,35 +37,27 @@ const styles = {
     }
 }
 
-class AddCitizen extends React.Component {
-    constructor() {
-        super();
+class AdminLogin extends Component {
+    constructor(props) {
+        super(props);
         this.state = {
-            voterId: '',
-            name: '',
-            gender: '',
-            constituencyId: '',
+            name: "",
+            gender: "",
+            email: "",
+            password: "",
+            pollingBoothId: "",
         }
     }
 
     handleSubmit = (event) => {
-        event.preventDefault();
-        const citizen = {
-            voterId: this.state.voterId,
-            name: this.state.name,
-            gender: this.state.gender,
-            constituencyId: this.state.constituencyId,
+        if (event.target.name == "pollingBoothId" || event.target.name == "email" || event.target.name == "gender") {
+            event.target.value = _.toLower(event.target.value);
         }
-        this.props.addCitizen(citizen, this.props);
+        event.preventDefault();
+        this.props.addAdmin(this.state, this.props);
     }
 
     handleChange = (event) => {
-        if (event.target.name == "voterId" || event.target.name == "constituencyId") {
-            event.target.value = _.toUpper(event.target.value);
-        }
-        if (event.target.name == "gender") {
-            event.target.value = _.toLower(event.target.value);
-        }
         this.setState({
             [event.target.name]: event.target.value
         })
@@ -78,15 +70,16 @@ class AddCitizen extends React.Component {
                 <Grid item sm />
                 <Grid item sm>
                     <Typography variant="h3" className={classes.pageTitle}>
-                        Add Citizen
+                        Add Admin
                     </Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
                         <TextField id='name' name='name' type='text' label="Name" value={this.state.name} onChange={this.handleChange} fullWidth />
-                        <TextField id='voterId' name='voterId' type='text' label="Voter ID" className={classes.textField} value={this.state.voterId} onChange={this.handleChange} fullWidth />
+                        <TextField id='pollingBoothId' name='pollingBoothId' type='text' label="Polling Booth ID" className={classes.textField} value={this.state.pollingBoothId} onChange={this.handleChange} fullWidth />
                         <TextField id='gender' name='gender' type='text' label="Gender" value={this.state.gender} onChange={this.handleChange} fullWidth />
-                        <TextField id='constituencyId' name='constituencyId' type='text' label="Constituency ID" value={this.state.constituencyId} onChange={this.handleChange} fullWidth />
+                        <TextField id='email' name='email' type='email' label="Email" onChange={this.handleChange} fullWidth />
+                        <TextField id='password' name='password' type='password' label="Password" className={classes.textField} value={this.state.password} onChange={this.handleChange} fullWidth />
                         <Button type="submit" variant="contained" color="primary" className={classes.Button}>
-                            Add Citizen
+                            Add Admin
                         </Button>
                     </form>
                 </Grid>
@@ -97,11 +90,11 @@ class AddCitizen extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    admin: state.admin,
+    admin: state.admin
 })
 
 const mapActionsToProps = {
-    addCitizen,
+    addAdmin
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(AddCitizen));
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(AdminLogin));

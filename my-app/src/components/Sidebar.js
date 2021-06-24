@@ -105,9 +105,8 @@ class Sidebar extends React.Component {
                             && admin.isLoggedIn && admin.admin.role == constants.roles.CEC
                             && this.generateListItem("Add polling booth", LocationOnIcon, this.sideBarItemClickedEvent, '/addPollingBooth'),
                             // Add Citizen
-                            // TODO: Remove the permission for CEC once development is done
                             election.electionStatus.value == constants.electionStatus.NOT_STARTED.value
-                            && admin.isLoggedIn && (admin.admin.role == constants.roles.CEC || admin.admin.role == constants.roles.PBO)
+                            && admin.isLoggedIn
                             && this.generateListItem("Add citizen", PersonAdd, this.sideBarItemClickedEvent, '/addCitizen'),
                             // Add Candidate
                             election.electionStatus.value == constants.electionStatus.NOT_STARTED.value
@@ -128,7 +127,7 @@ class Sidebar extends React.Component {
                             // Find PollingBooth
                             this.generateListItem("Find polling booth", MyLocationIcon, this.sideBarItemClickedEvent, '/findPollingBooth'),
                             // Find citizen
-                            admin.isLoggedIn && (admin.admin.role == constants.roles.CEC || admin.admin.role == constants.roles.PBO)
+                            admin.isLoggedIn
                             && this.generateListItem("Find citizen", AccountCircleIcon, this.sideBarItemClickedEvent, '/findCitizen'),
                             // Find candidate
                             this.generateListItem("Find candidate", PageviewIcon, this.sideBarItemClickedEvent, '/findCandidate'),

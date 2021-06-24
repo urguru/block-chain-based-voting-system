@@ -16,6 +16,7 @@ import AddConstituency from './pages/addConstituencyPage';
 import AddCitizen from './pages/addCitizenPage';
 import AddPollingBooth from './pages/addPollingBooth';
 import AddCandidate from './pages/addCandidate';
+import AddAdmin from './pages/addAdmin';
 
 import Error from './pages/errorPage';
 import HeaderComponent from './components/Header';
@@ -49,6 +50,7 @@ class App extends React.Component {
 						<PrivateRoute exact path="/addCitizen" Component={AddCitizen} isLoggedIn={this.props.admin.isLoggedIn} />
 						<PrivateRoute exact path="/addPollingBooth" Component={AddPollingBooth} isLoggedIn={this.props.admin.isLoggedIn} />
 						<PrivateRoute exact path="/addCandidate" Component={AddCandidate} isLoggedIn={this.props.admin.isLoggedIn} />
+						<PrivateRoute exact path="/addAdmin" Component={AddAdmin} isLoggedIn={this.props.admin.isLoggedIn} />
 						<Route default component={Error} />
 					</Switch>
 				</Router >

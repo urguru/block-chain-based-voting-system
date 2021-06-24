@@ -34,7 +34,7 @@ const CitizenSchema = new Schema(
 			type: Date,
 		},
 		constituencyId: {
-			type: Number,
+			type: String,
 			required: true,
 		},
 	},
@@ -56,7 +56,7 @@ CitizenSchema.virtual("pollingBooth", {
 	ref: "PollingBooth",
 	localField: "pollingBoothId",
 	foreignField: "pollingBoothId",
-	justOne:true,
+	justOne: true,
 })
 
 const Citizen = mongoose.model("Citizen", CitizenSchema);

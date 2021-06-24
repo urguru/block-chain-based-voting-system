@@ -21,3 +21,15 @@ export const adminLogout = (props) => (dispatch, getState) => {
     dispatch({ type: types.SET_LOADING_WINDOW_SUCCESS, payload: { mainLoadingWindowMessage: "Successfully logged out of the application" } })
     props.history.push('/');
 }
+
+export const addAdmin = (admin, props) => async (dispatch, getState) => {
+    const ACCESS_TOKEN = getState().admin.token;
+    try {
+        dispatch({ type: types.SET_LOADING_WINDOW_LOADING, payload: { mainLoadingWindowMessage: "Adding admin to the database" } })
+        await adminClient.addAdmin(ACCESS_TOKEN, admin);
+        dispatch({ type: types.SET_LOADING_WINDOW_SUCCESS, payload: { mainLoadingWindowMessage: "Successfully added admin to the database" } })
+        props.history.push('/');
+    } catch (e) {
+        dispatch({ type: types.SET_LOADING_WINDOW_FAILURE, payload: { mainLoadingWindowMessage: e.response.data.message } })
+    }
+}

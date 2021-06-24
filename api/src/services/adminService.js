@@ -2,16 +2,22 @@ const _ = require("lodash");
 const { generateAuthToken } = require("../common/auth");
 const { ER_ADMIN_WTH_EMAIL_ID_ALREADY_EXISTS, ER_INVALID_POLLINGBOOTH_ID } = require("../common/errors");
 const adminRepository = require("../repositories/adminRepository");
+const pollingBoothRepository = require("../repositories/pollingBoothRepository")
 const Admin = require("../schemas/dao/admin");
 
 const createAdmin = async (admin) => {
-	const existingAdmin = await adminRepository.getAdminByEmailId(admin.email);
-	if (!existingAdmin) {
-		const result = await adminRepository.createAdmin(admin);
-		const structuredResult = await getClientPresentableResult(result);
-		return structuredResult;
+	const existingPollingBooth = await pollingBoothRepository.getPollingBoothByPollingBoothId(admin.pollingBoothId);
+	if (!existingPollingBooth) {
+		const existingAdmin = await adminRepository.getAdminByEmailId(admin.email);
+		if (!existingAdmin) {
+			const result = await adminRepository.createAdmin(admin);
+			const structuredResult = await getClientPresentableResult(result);
+			return structuredResult;
+		} else {
+			ER_ADMIN_WTH_EMAIL_ID_ALREADY_EXISTS;
+		}
 	} else {
-		ER_ADMIN_WTH_EMAIL_ID_ALREADY_EXISTS;
+		ER_INVALID_POLLINGBOOTH_ID;
 	}
 };
 
