@@ -51,8 +51,8 @@ class AddCandidate extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        // if (nextProps.auth.error) {
-        //     //this.setState({ error: nextProps.auth.error })
+        // if (nextProps.admin.error) {
+        //     //this.setState({ error: nextProps.admin.error })
         // } else {
         //     //this.setState({ error: '' })
         // }
@@ -105,7 +105,7 @@ class AddCandidate extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    auth: state.auth,
+    admin: state.admin,
 })
 
 const mapActionsToProps = {

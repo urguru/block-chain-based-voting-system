@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
-import authReducer from './authReducer';
+import adminReducer from './adminReducer';
 import uiReducer from './uiReducer';
 import contractReducer from './contractReducer';
+import electionReducer from './electionReducer';
 
 export default combineReducers({
-    auth: authReducer,
+    admin: adminReducer,
     ui: uiReducer,
     contract: contractReducer,
+    election: electionReducer,
 });

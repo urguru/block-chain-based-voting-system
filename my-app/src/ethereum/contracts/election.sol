@@ -214,6 +214,10 @@ contract Election {
         return candidateVoteCount[candidateMapping[_candidateVoterId] - 1];
     }
 
+    function getElectionStatus() public view returns (uint32){
+        return electionStatus;
+    }
+
     function getAllCandidates() public view returns (Candidate[] memory) {
         return candidates;
     }

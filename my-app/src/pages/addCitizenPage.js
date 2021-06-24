@@ -92,7 +92,7 @@ class AddCitizen extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    auth: state.auth,
+    admin: state.admin,
 })
 
 const mapActionsToProps = {

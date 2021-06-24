@@ -1,10 +1,10 @@
 import types from "./types";
-import authClient from "../clients/adminClient";
+import adminClient from "../clients/adminClient";
 
 export const adminLogin = (email, password, props) => async (dispatch, getState) => {
     try {
         dispatch({ type: types.SET_LOADING_WINDOW_LOADING, payload: { mainLoadingWindowMessage: "Logging in to the application" } })
-        const response = await authClient.adminLogin(email, password);
+        const response = await adminClient.adminLogin(email, password);
         dispatch({ type: types.ADMIN_LOG_IN, payload: { isLoggedIn: true, token: response.data.token, admin: response.data.admin } });
         dispatch({ type: types.SET_LOADING_WINDOW_SUCCESS, payload: { mainLoadingWindowMessage: "Successfully logged into the application" } })
         props.history.push('/');

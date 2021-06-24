@@ -39,7 +39,7 @@ class Header extends React.Component {
                         <Typography variant="h6" className={classes.title}>
                             Block Chain Based Voting System
                         </Typography>
-                        {this.props.auth.isLoggedIn && <Typography variant="h6" className={classes.rightTitle}>Hello, {this.props.auth.admin.name}</Typography>}
+                        {this.props.admin.isLoggedIn && <Typography variant="h6" className={classes.rightTitle}>Hello, {this.props.admin.admin.name}</Typography>}
                     </Toolbar>
                 </AppBar>
             </div>
@@ -48,7 +48,7 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    auth: state.auth
+    admin: state.admin
 })
 
 const mapActionsToProps = {

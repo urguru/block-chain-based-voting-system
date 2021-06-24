@@ -10,9 +10,9 @@ const roles = {
 };
 
 const electionStatus = {
-    STARTED: "started",
-    COMPLETED: "completed",
-    NOT_STARTED: "not started",
+    NOT_STARTED: { text: "not started", value: 0 },
+    STARTED: { text: "started", value: 1 },
+    COMPLETED: { text: "completed", value: 2 },
 };
 
 const mainLoadingWindowStates = {

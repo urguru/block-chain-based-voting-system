@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button'
 
 //Redux
 import { connect } from 'react-redux'
-import { adminLogin } from '../actions/authActions';
+import { adminLogin } from '../actions/adminActions';
 
 const styles = {
     form: {
@@ -80,7 +80,7 @@ class AdminLogin extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    auth: state.auth
+    admin: state.admin
 })
 
 const mapActionsToProps = {

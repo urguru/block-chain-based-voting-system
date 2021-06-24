@@ -9,7 +9,7 @@ import { PrivateRoute } from './common/router';
 import { loadContract } from './actions/contractActions';
 import { closeSidebar } from './actions/uiActions';
 
-import Home from './pages/homePage';
+import Dashboard from './pages/dashboardPage';
 import AdminLogin from './pages/adminLoginPage';
 
 import AddConstituency from './pages/addConstituencyPage';
@@ -43,12 +43,12 @@ class App extends React.Component {
 					<HeaderComponent />
 					<SidebarComponent />
 					<Switch>
-						<Route exact path="/" component={Home} />
+						<Route exact path="/" component={Dashboard} />
 						<Route exact path="/login" component={AdminLogin} />
-						<PrivateRoute exact path="/addConstituency" Component={AddConstituency} isLoggedIn={this.props.auth.isLoggedIn} />
-						<PrivateRoute exact path="/addCitizen" Component={AddCitizen} isLoggedIn={this.props.auth.isLoggedIn} />
-						<PrivateRoute exact path="/addPollingBooth" Component={AddPollingBooth} isLoggedIn={this.props.auth.isLoggedIn} />
-						<PrivateRoute exact path="/addCandidate" Component={AddCandidate} isLoggedIn={this.props.auth.isLoggedIn} />
+						<PrivateRoute exact path="/addConstituency" Component={AddConstituency} isLoggedIn={this.props.admin.isLoggedIn} />
+						<PrivateRoute exact path="/addCitizen" Component={AddCitizen} isLoggedIn={this.props.admin.isLoggedIn} />
+						<PrivateRoute exact path="/addPollingBooth" Component={AddPollingBooth} isLoggedIn={this.props.admin.isLoggedIn} />
+						<PrivateRoute exact path="/addCandidate" Component={AddCandidate} isLoggedIn={this.props.admin.isLoggedIn} />
 						<Route default component={Error} />
 					</Switch>
 				</Router >
@@ -58,7 +58,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-	return { auth: state.auth, contract: state.contract };
+	return { admin: state.admin, contract: state.contract };
 }
 
 const mapActionsToProps = {
