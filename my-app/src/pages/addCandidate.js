@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 //Redux
 import { connect } from 'react-redux';
@@ -63,7 +64,6 @@ class AddCandidate extends React.Component {
 
     render() {
         const { classes } = this.props
-        const { error } = this.state
         return (
             <Grid container className={classes.form}>
                 <Grid item sm />
@@ -73,7 +73,12 @@ class AddCandidate extends React.Component {
                     </Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
                         <TextField id='voterId' name='voterId' type='text' label="Voter ID" className={classes.textField} value={this.state.voterId} onChange={this.handleChange} fullWidth />
-                        <TextField id='contestingConstituencyId' name='contestingConstituencyId' type='text' label="Contesting Constituency ID" value={this.state.contestingConstituencyId} onChange={this.handleChange} fullWidth />
+                        {/* Constituency ID */}
+                        <Autocomplete id="contestingConstituencyId"
+                            options={_.values(this.props.contract.constituencies.map(item => item[0]))} name="contestingConstituencyId"
+                            getOptionLabel={(option) => option}
+                            onChange={(e, newValue) => this.setState({ contestingConstituencyId: newValue })}
+                            renderInput={(params) => <TextField {...params} label="Contesting Constituency ID" fullWidth />} />
                         <Button type="submit" variant="contained" color="primary" className={classes.Button}>
                             Add Candidate
                         </Button>
@@ -86,6 +91,7 @@ class AddCandidate extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+    contract: state.contract
 })
 
 const mapActionsToProps = {

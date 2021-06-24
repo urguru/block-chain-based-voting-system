@@ -8,9 +8,11 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 //Redux
 import { connect } from 'react-redux';
+import constants from '../common/constants';
 
 const styles = {
     form: {
@@ -60,11 +62,8 @@ class AddCitizen extends React.Component {
     }
 
     handleChange = (event) => {
-        if (event.target.name == "voterId" || event.target.name == "constituencyId") {
+        if (event.target.name == "voterId") {
             event.target.value = _.toUpper(event.target.value);
-        }
-        if (event.target.name == "gender") {
-            event.target.value = _.toLower(event.target.value);
         }
         this.setState({
             [event.target.name]: event.target.value
@@ -83,8 +82,18 @@ class AddCitizen extends React.Component {
                     <form noValidate onSubmit={this.handleSubmit}>
                         <TextField id='name' name='name' type='text' label="Name" value={this.state.name} onChange={this.handleChange} fullWidth />
                         <TextField id='voterId' name='voterId' type='text' label="Voter ID" className={classes.textField} value={this.state.voterId} onChange={this.handleChange} fullWidth />
-                        <TextField id='gender' name='gender' type='text' label="Gender" value={this.state.gender} onChange={this.handleChange} fullWidth />
-                        <TextField id='constituencyId' name='constituencyId' type='text' label="Constituency ID" value={this.state.constituencyId} onChange={this.handleChange} fullWidth />
+                        {/* Gender */}
+                        <Autocomplete id="gender"
+                            options={_.values(constants.gender)} name="gender"
+                            getOptionLabel={(option) => option}
+                            onChange={(e, newValue) => this.setState({ gender: newValue })}
+                            renderInput={(params) => <TextField {...params} label="Gender" fullWidth />} />
+                        {/* Constituency ID */}
+                        <Autocomplete id="constituencyId"
+                            options={_.values(this.props.contract.constituencies.map(item => item[0]))} name="constituencyId"
+                            getOptionLabel={(option) => option}
+                            onChange={(e, newValue) => this.setState({ constituencyId: newValue })}
+                            renderInput={(params) => <TextField {...params} label="Constituency ID" fullWidth />} />
                         <Button type="submit" variant="contained" color="primary" className={classes.Button}>
                             Add Citizen
                         </Button>
@@ -98,6 +107,7 @@ class AddCitizen extends React.Component {
 
 const mapStateToProps = (state) => ({
     admin: state.admin,
+    contract: state.contract,
 })
 
 const mapActionsToProps = {

@@ -3,12 +3,12 @@ let config
 if (process.env.REACT_APP_ENV === 'production') {
     config = {
         apiURL: "http://localhost:3080/api",
-        contractAddress: "0x5033b83f774400E6Df1F245F01729909d4cDC993",
+        contractAddress: "0x31EcFAEBaACFE119E6f5263D9c4c3AdF982a0018",
     }
 } else {
     config = {
         apiURL: "http://localhost:3080/api",
-        contractAddress: "0x5033b83f774400E6Df1F245F01729909d4cDC993",
+        contractAddress: "0x31EcFAEBaACFE119E6f5263D9c4c3AdF982a0018",
     }
 }
 

@@ -71,6 +71,7 @@ class Sidebar extends React.Component {
         const isLoginPage = window.location.pathname == "/login";
         const isContractLoaded = this.props.contract.isContractLoaded;
         const networkText = isContractLoaded ? "Connected to network" : "Connect to network";
+        const electionLinkText = this.props.election.electionStatus.value == 0 ? "Start election" : "Complete election";
         const { classes } = this.props;
         const { admin, election } = this.props;
         const list = () => (
@@ -115,7 +116,7 @@ class Sidebar extends React.Component {
                             //Update election status
                             election.electionStatus.value != constants.electionStatus.COMPLETED.value
                             && admin.isLoggedIn && admin.admin.role == constants.roles.CEC
-                            && this.generateListItem("Update election status", UpdateIcon, this.sideBarItemClickedEvent, '/updateElectionStatus'),
+                            && this.generateListItem(electionLinkText, UpdateIcon, this.sideBarItemClickedEvent, '/updateElectionStatus'),
                             // Cast Vote
                             election.electionStatus.value == constants.electionStatus.STARTED.value
                             && admin.isLoggedIn && admin.admin.role == constants.roles.CEC

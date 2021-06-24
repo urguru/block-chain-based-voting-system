@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import withStyles from '@material-ui/core/styles/withStyles'
 
 import history from './history';
 import { PrivateRoute } from './common/router';
@@ -17,11 +17,15 @@ import AddCitizen from './pages/addCitizenPage';
 import AddPollingBooth from './pages/addPollingBooth';
 import AddCandidate from './pages/addCandidate';
 import AddAdmin from './pages/addAdmin';
+import UpdateElectionStatus from './pages/updateElectionStatusPage';
 
 import Error from './pages/errorPage';
 import HeaderComponent from './components/Header';
 import SidebarComponent from './components/Sidebar';
 import MainLoadingWindowComponent from './components/MainLoadingWindow';
+
+const styles = {
+}
 
 class App extends React.Component {
 	constructor() {
@@ -37,6 +41,7 @@ class App extends React.Component {
 	}
 
 	render() {
+		const { classes } = this.props
 		return (
 			<div>
 				<Router history={history}>
@@ -51,6 +56,7 @@ class App extends React.Component {
 						<PrivateRoute exact path="/addPollingBooth" Component={AddPollingBooth} isLoggedIn={this.props.admin.isLoggedIn} />
 						<PrivateRoute exact path="/addCandidate" Component={AddCandidate} isLoggedIn={this.props.admin.isLoggedIn} />
 						<PrivateRoute exact path="/addAdmin" Component={AddAdmin} isLoggedIn={this.props.admin.isLoggedIn} />
+						<PrivateRoute exact path="/updateElectionStatus" Component={UpdateElectionStatus} isLoggedIn={this.props.admin.isLoggedIn} />
 						<Route default component={Error} />
 					</Switch>
 				</Router >
@@ -68,4 +74,4 @@ const mapActionsToProps = {
 	closeSidebar
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(App);
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(App));

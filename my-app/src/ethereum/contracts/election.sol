@@ -237,6 +237,10 @@ contract Election {
         return constituencies;
     }
 
+    function getCountOfCitizens() public view returns (uint32) {
+        return countOfCitizens;
+    }
+
     function getAllPollingBooths() public view returns (address[] memory) {
         return pollingBooths;
     }

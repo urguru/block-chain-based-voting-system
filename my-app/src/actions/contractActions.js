@@ -14,8 +14,14 @@ export const loadContract = () => async (dispatch, getState) => {
         const address = config.contractAddress;
         const electionInterface = electionFile.Election.abi;
         const contract = new web3.eth.Contract(electionInterface, address);
-        dispatch({ type: types.SET_LOADING_WINDOW_LOADING, payload: { mainLoadingWindowMessage: "Loading election status" } })
-        const electionStatus = await contract.methods.getElectionStatus().call();
+        dispatch({ type: types.SET_LOADING_WINDOW_LOADING, payload: { mainLoadingWindowMessage: "Loading contract data" } })
+        const [electionStatus, constituencies, candidates, pollingBooths, totalCitizens] = await Promise.all([
+            contract.methods.getElectionStatus().call(),
+            contract.methods.getAllConstituencies().call(),
+            contract.methods.getAllCandidates().call(),
+            contract.methods.getAllPollingBooths().call(),
+            contract.methods.getCountOfCitizens().call()]);
+        console.log(electionStatus, constituencies, candidates, pollingBooths, totalCitizens);
         if (electionStatus == 0) {
             dispatch({ type: types.SET_ELECTION_STATUS_NOT_STARTED })
         } else if (electionStatus == 1) {
@@ -24,9 +30,36 @@ export const loadContract = () => async (dispatch, getState) => {
             dispatch({ type: types.SET_ELECTION_STATUS_COMPLETED })
         }
         dispatch({ type: types.SET_LOADING_WINDOW_SUCCESS, payload: { mainLoadingWindowMessage: "Connected to the network" } })
-        dispatch({ type: types.LOAD_CONTRACT, payload: { contract, mainAccount } })
+        dispatch({ type: types.LOAD_CONTRACT, payload: { contract, mainAccount, electionStatus, constituencies, candidates, pollingBooths, totalCitizens } })
     } catch (e) {
         dispatch({ type: types.LOAD_CONTRACT_FAILED });
+    }
+}
+
+export const loadContractData = () => async (dispatch, getState) => {
+    try {
+        const contract = getState().contract.contract;
+        const mainAccount = getState().contract.mainAccount;
+        dispatch({ type: types.SET_LOADING_WINDOW_LOADING, payload: { mainLoadingWindowMessage: "Loading contract data" } })
+        const [electionStatus, constituencies, candidates, pollingBooths, totalCitizens] = await Promise.all([
+            contract.methods.getElectionStatus().call(),
+            contract.methods.getAllConstituencies().call(),
+            contract.methods.getAllCandidates().call(),
+            contract.methods.getAllPollingBooths().call(),
+            contract.methods.getCountOfCitizens().call()]);
+        console.log(electionStatus, constituencies, candidates, pollingBooths, totalCitizens);
+        if (electionStatus == 0) {
+            dispatch({ type: types.SET_ELECTION_STATUS_NOT_STARTED })
+        } else if (electionStatus == 1) {
+            dispatch({ type: types.SET_ELECTION_STATUS_STARTED })
+        } else if (electionStatus == 2) {
+            dispatch({ type: types.SET_ELECTION_STATUS_COMPLETED })
+        }
+        dispatch({ type: types.SET_LOADING_WINDOW_SUCCESS, payload: { mainLoadingWindowMessage: "Completed loading the contract data" } })
+        dispatch({ type: types.LOAD_CONTRACT, payload: { contract, mainAccount, electionStatus, constituencies, candidates, pollingBooths, totalCitizens } })
+    } catch (e) {
+        dispatch({ type: types.SET_LOADING_WINDOW_SUCCESS, payload: { mainLoadingWindowMessage: "Error Loading the contract data" } })
+        dispatch({ type: types.LOAD_CONTRACT_DATA_FAILED });
     }
 }
 
