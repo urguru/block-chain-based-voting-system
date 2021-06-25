@@ -32,7 +32,7 @@ const getCitizenByVoterId = async (ACCESS_TOKEN, voterId) => {
     return response;
 }
 
-const castVote = async (ACCESS_TOKEN, voterId, candidateVoterId) => {
+const castVote = async (ACCESS_TOKEN, candidateVoterId,voterId) => {
     const url = config.apiURL + `/v1/citizen/${voterId}/vote`;
     const options = {
         headers: {

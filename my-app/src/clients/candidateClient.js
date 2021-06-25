@@ -21,13 +21,13 @@ const getCandidateByVoterId = async (voterId) => {
     const options = {
         headers: {
             'content-type': 'application/json',
-
         },
         timeout: 10000,
         responseType: 'json',
         responseEncoding: 'utf8',
     };
     const response = await axios.get(url, options);
+    console.log(response);
     return response;
 }
 

@@ -33,6 +33,7 @@ export const getCandidateByVoterId = (candidateVoterId, props) => async (dispatc
     try {
         dispatch({ type: types.START_LOADING_CANDIDATE_DATA })
         dispatch({ type: types.SET_LOADING_WINDOW_LOADING, payload: { mainLoadingWindowMessage: "Fetching Candidate Details from the database" } })
+        console.log(candidateVoterId)
         const response = await candidateClient.getCandidateByVoterId(candidateVoterId);
         dispatch({ type: types.COMPLETE_LOADING_CANDIDATE_DATA, payload: { candidate: response.data } })
         dispatch({ type: types.SET_LOADING_WINDOW_CLOSE })

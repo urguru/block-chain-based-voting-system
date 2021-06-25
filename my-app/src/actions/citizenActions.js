@@ -45,3 +45,31 @@ export const getCitizenByVoterId = (voterId, props) => async (dispatch, getState
         props.history.push('/');
     }
 }
+
+export const castVote = (candidateVoterId,voterId,props) => async (dispatch, getState) => {
+    const ACCESS_TOKEN = getState().admin.token;
+    const mainAccount = getState().contract.mainAccount;
+    const contract = getState().contract.contract;
+    try {
+        try {
+            dispatch({ type: types.SET_LOADING_WINDOW_LOADING, payload: { mainLoadingWindowMessage: "Casting vote to the blockchain network" } })
+            await contract.methods.castVote(candidateVoterId, voterId).estimateGas({ from: mainAccount });
+            await contract.methods.castVote(candidateVoterId, voterId).send({ from: mainAccount });
+            dispatch({ type: types.SET_LOADING_WINDOW_SUCCESS, payload: { mainLoadingWindowMessage: "Successfully casted vote to the blockchain network" } })
+        } catch (e) {
+            const errMessage = JSON.parse(e.message.substr(e.message.indexOf("{"))).originalError.message;
+            dispatch({ type: types.SET_LOADING_WINDOW_FAILURE, payload: { mainLoadingWindowMessage: errMessage } })
+            throw new Error();
+        }
+        try {
+            dispatch({ type: types.SET_LOADING_WINDOW_LOADING, payload: { mainLoadingWindowMessage: "Casting vote to the database" } })
+            await citizenClient.castVote(ACCESS_TOKEN, candidateVoterId,voterId);
+            dispatch({ type: types.SET_LOADING_WINDOW_SUCCESS, payload: { mainLoadingWindowMessage: "Successfully casted vote to the blockchain network and the database" } })
+            props.history.push('/');
+        } catch (e) {
+            dispatch({ type: types.SET_LOADING_WINDOW_FAILURE, payload: { mainLoadingWindowMessage: e.response.data.message } })
+        }
+    } catch (e) {
+
+    }
+}

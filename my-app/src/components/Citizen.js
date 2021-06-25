@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
+import TableCard from '../components/Table';
 
 const styles = {
 }
@@ -13,12 +14,26 @@ class CitizenCard extends React.Component {
         }
     }
 
+    getTableItems = () => {
+        const { citizen } = this.props;
+        const tableList = [];
+        tableList.push(["Name", citizen.name]);
+        tableList.push(["Voter Id", citizen.voterId]);
+        tableList.push(["Gender", citizen.gender]);
+        tableList.push(["Constituency", citizen.constituency.name]);
+        tableList.push(["Voted", citizen.hasVoted ? "Yes" : "No"]);
+        if (citizen.hasVoted) {
+            tableList.push(["VotedAt", citizen.timeVotedAt]);
+        }
+        return tableList;
+    }
+
     componentDidMount() {
     }
 
     render() {
         const { classes } = this.props;
-        return "CitizenCard"
+        return (<TableCard title="Citizen Details" lists={this.getTableItems()} />)
     }
 }
 
