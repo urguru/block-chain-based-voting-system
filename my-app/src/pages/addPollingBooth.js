@@ -75,8 +75,8 @@ class AddPollingBooth extends React.Component {
                         Add Polling Booth
                     </Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
-                        <TextField id='pollingBoothId' name='pollingBoothId' type='text' label="Polling Booth ID" className={classes.textField} value={this.state.pollingBoothId} onChange={this.handleChange} fullWidth />
-                        <TextField id='name' name='name' type='text' label="Name" className={classes.textField} value={this.state.name} onChange={this.handleChange} fullWidth />
+                        <TextField id='pollingBoothId'  variant="outlined"  name='pollingBoothId' type='text' label="Polling Booth ID" className={classes.textField} value={this.state.pollingBoothId} onChange={this.handleChange} fullWidth />
+                        <TextField id='name' name='name'  variant="outlined"  type='text' label="Name" className={classes.textField} value={this.state.name} onChange={this.handleChange} fullWidth />
                         <Button type="submit" variant="contained" color="primary" className={classes.Button}>
                             Add Polling Booth
                         </Button>

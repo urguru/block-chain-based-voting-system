@@ -60,7 +60,7 @@ const getClientPresentableResult = async (candidate, status) => {
 		updatedAt: candidate.updatedAt,
 	};
 	if (status != electionStatus.STARTED) {
-		structuredCandidate.maleVoteCount = candidate.malevoteCount;
+		structuredCandidate.maleVoteCount = candidate.maleVoteCount;
 		structuredCandidate.femaleVoteCount = candidate.femaleVoteCount;
 		structuredCandidate.otherVoteCount = candidate.otherVoteCount;
 	}

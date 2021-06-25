@@ -220,6 +220,11 @@ contract Election {
 
         return candidateVoteCount[candidateMapping[_candidateVoterId] - 1];
     }
+    
+    function getAllVotes() public view returns (uint32[] memory){
+        require(electionStatus == 2, "ER_ELECTION_NOT_IN_COMPLETED_STATE");
+        return candidateVoteCount;
+    }
 
     function getElectionStatus() public view returns (uint32) {
         return electionStatus;

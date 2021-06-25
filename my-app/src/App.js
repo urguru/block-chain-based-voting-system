@@ -29,6 +29,11 @@ import SidebarComponent from './components/Sidebar';
 import MainLoadingWindowComponent from './components/MainLoadingWindow';
 
 const styles = {
+	mainStyle: {
+		backgroundColor: "#f4f4f7",
+		width: "100vw",
+		minHeight: "100vh",
+	}
 }
 
 class App extends React.Component {
@@ -47,7 +52,7 @@ class App extends React.Component {
 	render() {
 		const { classes } = this.props
 		return (
-			<div>
+			<div className={classes.mainStyle}>
 				<Router history={history}>
 					<MainLoadingWindowComponent />
 					<HeaderComponent />

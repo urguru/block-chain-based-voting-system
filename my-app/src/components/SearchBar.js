@@ -50,6 +50,14 @@ class SearchBar extends React.Component {
             searchBoxContent: ''
         }
     }
+
+    updateSearchBar = (value) => {
+        if (_.isUndefined(value) || _.isNull(value)) {
+            value = "";
+        }
+        this.setState({ searchBoxContent: value })
+    }
+
     render() {
         const { classes } = this.props;
         return (
@@ -65,8 +73,8 @@ class SearchBar extends React.Component {
                             freeSolo={this.props.freeSolo}
                             options={this.props.options} name={this.props.id}
                             getOptionLabel={(option) => option}
-                            onChange={(e, newValue) => this.setState({ searchBoxContent: newValue })}
-                            onInputChange={(e, newValue) => this.setState({ searchBoxContent: newValue })}
+                            onChange={(e, newValue) => this.updateSearchBar(newValue)}
+                            onInputChange={(e, newValue) => this.updateSearchBar(newValue)}
                             renderInput={(params) => <TextField {...params} variant="outlined" label={this.props.title} fullWidth />} />
                     </div>
 

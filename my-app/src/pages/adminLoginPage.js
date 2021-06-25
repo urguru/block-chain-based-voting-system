@@ -66,8 +66,8 @@ class AdminLogin extends Component {
                         Login
                     </Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
-                        <TextField id='email' name='email' type='email' label="Email" onChange={this.handleChange} fullWidth />
-                        <TextField id='password' name='password' type='password' label="Password" className={classes.textField} value={this.state.password} onChange={this.handleChange} fullWidth />
+                        <TextField id='email'  variant="outlined"  name='email' type='email' label="Email" onChange={this.handleChange} fullWidth />
+                        <TextField id='password' name='password'  variant="outlined"  type='password' label="Password" className={classes.textField} value={this.state.password} onChange={this.handleChange} fullWidth />
                         <Button type="submit" variant="contained" color="primary" className={classes.Button}>
                             Login
                         </Button>

@@ -121,17 +121,6 @@ class Sidebar extends React.Component {
                             election.electionStatus.value == constants.electionStatus.STARTED.value
                             && admin.isLoggedIn && admin.admin.role == constants.roles.CEC
                             && this.generateListItem("Cast Vote", HowToVoteIcon, this.sideBarItemClickedEvent, '/castVote'),
-                            // Find Admin
-                            this.generateListItem("Find admin", SearchIcon, this.sideBarItemClickedEvent, '/findAdmin'),
-                            // Find Constituency
-                            this.generateListItem("Find constituency", LocationCity, this.sideBarItemClickedEvent, '/findConstituency'),
-                            // Find PollingBooth
-                            this.generateListItem("Find polling booth", MyLocationIcon, this.sideBarItemClickedEvent, '/findPollingBooth'),
-                            // Find citizen
-                            admin.isLoggedIn
-                            && this.generateListItem("Find citizen", AccountCircleIcon, this.sideBarItemClickedEvent, '/findCitizen'),
-                            // Find candidate
-                            this.generateListItem("Find candidate", PageviewIcon, this.sideBarItemClickedEvent, '/findCandidate'),
                             // Logout Icon
                             admin.isLoggedIn && this.generateListItem("Logout", ExitToApp, this.adminLogoutFunction),
                         ]

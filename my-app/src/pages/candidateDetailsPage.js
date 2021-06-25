@@ -21,7 +21,7 @@ class CandidateDetailsPage extends React.Component {
     }
 
     render() {
-        const { classses } = this.props;
+        const { classes } = this.props;
         return `${JSON.stringify(this.props.candidate)}`;
     }
 }

@@ -21,6 +21,10 @@ export const loadContract = () => async (dispatch, getState) => {
             contract.methods.getAllCandidates().call(),
             contract.methods.getAllPollingBooths().call(),
             contract.methods.getCountOfCitizens().call()]);
+        let voteCountArray=[];
+        if (electionStatus == 2) {
+            voteCountArray = await contract.methods.getAllVotes().call();
+        }
         console.log(electionStatus, constituencies, candidates, pollingBooths, totalCitizens);
         if (electionStatus == 0) {
             dispatch({ type: types.SET_ELECTION_STATUS_NOT_STARTED })
@@ -30,7 +34,7 @@ export const loadContract = () => async (dispatch, getState) => {
             dispatch({ type: types.SET_ELECTION_STATUS_COMPLETED })
         }
         dispatch({ type: types.SET_LOADING_WINDOW_SUCCESS, payload: { mainLoadingWindowMessage: "Connected to the network" } })
-        dispatch({ type: types.LOAD_CONTRACT, payload: { contract, mainAccount, electionStatus, constituencies, candidates, pollingBooths, totalCitizens } })
+        dispatch({ type: types.LOAD_CONTRACT, payload: { contract, mainAccount, electionStatus, constituencies, candidates, pollingBooths, totalCitizens,voteCountArray } })
     } catch (e) {
         dispatch({ type: types.LOAD_CONTRACT_FAILED });
     }

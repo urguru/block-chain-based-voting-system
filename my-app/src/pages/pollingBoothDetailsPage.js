@@ -21,12 +21,13 @@ class PollingBoothDetailsPage extends React.Component {
     }
 
     render() {
-        const { classses } = this.props;
-        return "PollingBoothDetailsPage";
+        const { classes } = this.props;
+        return `${JSON.stringify(this.props.pollingBooth)}`;
     }
 }
 
 const mapStateToProps = (state) => ({
+    pollingBooth: state.pollingBooth
 })
 
 const mapActionsToProps = {

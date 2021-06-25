@@ -5,6 +5,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { getCitizenByVoterId } from '../actions/citizenActions';
 
 const styles = {
+    
 }
 
 class CitizenDetailsPage extends React.Component {
@@ -22,12 +23,13 @@ class CitizenDetailsPage extends React.Component {
     }
 
     render() {
-        const { classses } = this.props;
-        return "CitizenDetailsPage";
+        const { classes } = this.props;
+        return `${JSON.stringify(this.props.citizen)}`;
     }
 }
 
 const mapStateToProps = (state) => ({
+    citizen: state.citizen
 })
 
 const mapActionsToProps = {

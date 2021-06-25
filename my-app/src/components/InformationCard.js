@@ -14,7 +14,6 @@ const styles = {
         flexDirection: "row",
         padding: "10px",
         boxSizing: "border-box",
-        backgroundColor: "#dbe1df",
         '&:hover': {
             background: "#bde0fe",
         },
@@ -24,7 +23,9 @@ const styles = {
         display: "flex",
         flexDirection: "column",
         alignItems: "left",
-        justifyContent: "space-evenly"
+        justifyContent: "space-evenly",
+        textTransform:"capitalize",
+        fontFamily:"Normal"
     },
     link: {
         display: "flex",

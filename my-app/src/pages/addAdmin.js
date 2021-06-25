@@ -75,21 +75,23 @@ class AdminLogin extends Component {
                         Add Admin
                     </Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
-                        <TextField id='name' name='name' type='text' label="Name" value={this.state.name} onChange={this.handleChange} fullWidth />
+                        <TextField id='name' variant="outlined"  name='name' type='text' label="Name" className={classes.textField}
+                        value={this.state.name} onChange={this.handleChange} fullWidth />
                         {/* Polling Booth ID */}
                         <Autocomplete id="pollingBoothId"
                             options={this.props.contract.pollingBooths} name="pollingBoothId"
                             getOptionLabel={(option) => option}
                             onChange={(e, newValue) => this.setState({ pollingBoothId: newValue })}
-                            renderInput={(params) => <TextField {...params} label="Polling Booth ID" fullWidth />} />
+                            renderInput={(params) => <TextField variant="outlined" className={classes.textField} {...params} label="Polling Booth ID" fullWidth />} />
                         {/* Gender */}
                         <Autocomplete id="gender"
                             options={_.values(constants.gender)} name="gender"
                             getOptionLabel={(option) => option}
                             onChange={(e, newValue) => this.setState({ gender: newValue })}
-                            renderInput={(params) => <TextField {...params} label="Gender" fullWidth />} />
-                        <TextField id='email' name='email' type='email' label="Email" onChange={this.handleChange} fullWidth />
-                        <TextField id='password' name='password' type='password' label="Password" className={classes.textField} value={this.state.password} onChange={this.handleChange} fullWidth />
+                            renderInput={(params) => <TextField variant="outlined" className={classes.textField} {...params} label="Gender" fullWidth />} />
+                        <TextField id='email' name='email' variant="outlined" type='email' label="Email"
+                        className={classes.textField} onChange={this.handleChange} fullWidth />
+                        <TextField id='password' name='password' variant="outlined" type='password' label="Password" className={classes.textField} value={this.state.password} onChange={this.handleChange} fullWidth />
                         <Button type="submit" variant="contained" color="primary" className={classes.Button}>
                             Add Admin
                         </Button>

@@ -1,5 +1,6 @@
 import types from "./types";
 import constituencyClient from "../clients/constituencyClient";
+import _ from "lodash";
 
 export const addConstituency = (constituency, props) => async (dispatch, getState) => {
     const ACCESS_TOKEN = getState().admin.token;
@@ -30,14 +31,20 @@ export const addConstituency = (constituency, props) => async (dispatch, getStat
 }
 
 export const getConstituencyById = (constituencyId, props) => async (dispatch, getState) => {
+    const contract = getState().contract.contract;
+    dispatch({ type: types.START_LOADING_CONSTITUENCY_DATA })
+    dispatch({ type: types.SET_LOADING_WINDOW_LOADING, payload: { mainLoadingWindowMessage: "Fetching Constituency from the database and contract" } })
     try {
-        dispatch({ type: types.START_LOADING_CONSTITUENCY_DATA })
-        dispatch({ type: types.SET_LOADING_WINDOW_LOADING, payload: { mainLoadingWindowMessage: "Fetching Constituency from the database" } })
         const response = await constituencyClient.getConstituencyById(constituencyId);
-        dispatch({ type: types.COMPLETE_LOADING_CONSTITUENCY_DATA, payload: { constituency: response.data } })
+        const contractResponse = await contract.methods.getConstituencyDetails(constituencyId).call();
+        dispatch({ type: types.COMPLETE_LOADING_CONSTITUENCY_DATA, payload: { constituency: response.data, contractConstituency: contractResponse } })
         dispatch({ type: types.SET_LOADING_WINDOW_CLOSE })
     } catch (e) {
-        dispatch({ type: types.SET_LOADING_WINDOW_FAILURE, payload: { mainLoadingWindowMessage: e.response.data.message } })
+        if (!_.isUndefined(e.response) && !_.isNull(e.response.data.message)) {
+            dispatch({ type: types.SET_LOADING_WINDOW_FAILURE, payload: { mainLoadingWindowMessage: e.response.data.message } })
+        } else {
+            dispatch({ type: types.SET_LOADING_WINDOW_FAILURE, payload: { mainLoadingWindowMessage: "Error fetching data from contract" } })
+        }
         dispatch({ type: types.FAIL_LOADING_CONSTITUENCY_DATA })
         dispatch({ type: types.CONTRACT_DOESNOT_NEED_RELOAD })
         props.history.push('/');

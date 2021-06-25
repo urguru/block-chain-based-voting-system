@@ -8,6 +8,7 @@ const INITIAL_STATE = {
     constituencies: [],
     candidates: [],
     pollingBooths: [],
+    voteCountArray:[],
     totalCitizens: null,
 };
 
@@ -21,9 +22,10 @@ export default (state = { ...INITIAL_STATE }, action) => {
             return {
                 ...state,
                 isContractNeedsReload: true,
-                constituencies: null,
-                candidates: null,
-                pollingBooths: null,
+                constituencies: [],
+                candidates: [],
+                pollingBooths: [],
+                voteCountArray:[],
                 totalCitizens: null,
             }
         case types.CONTRACT_DOESNOT_NEED_RELOAD:
