@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { getCitizenByVoterId } from '../actions/citizenActions';
 
 const styles = {
 }
@@ -15,7 +16,9 @@ class CitizenDetailsPage extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props.match.params.voterId)
+        const voterId = this.props.match.params.voterId;
+        console.log(voterId);
+        this.props.getCitizenByVoterId(voterId);
     }
 
     render() {
@@ -28,6 +31,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapActionsToProps = {
+    getCitizenByVoterId
 }
 
 export default withRouter(connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(CitizenDetailsPage)));

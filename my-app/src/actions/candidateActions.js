@@ -29,3 +29,18 @@ export const addCandidate = (candidate, props) => async (dispatch, getState) => 
     }
 }
 
+export const getCandidateByVoterId = (candidateVoterId, props) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: types.START_LOADING_CANDIDATE_DATA })
+        dispatch({ type: types.SET_LOADING_WINDOW_LOADING, payload: { mainLoadingWindowMessage: "Fetching Candidate Details from the database" } })
+        const response = await candidateClient.getCandidateByVoterId(candidateVoterId);
+        dispatch({ type: types.COMPLETE_LOADING_CANDIDATE_DATA, payload: { candidate: response.data } })
+        dispatch({ type: types.SET_LOADING_WINDOW_CLOSE })
+    } catch (e) {
+        dispatch({ type: types.SET_LOADING_WINDOW_FAILURE, payload: { mainLoadingWindowMessage: e.response.data.message } })
+        dispatch({ type: types.FAIL_LOADING_CANDIDATE_DATA })
+        props.history.push('/');
+    }
+}
+
+

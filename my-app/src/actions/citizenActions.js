@@ -29,3 +29,19 @@ export const addCitizen = (citizen, props) => async (dispatch, getState) => {
     }
 }
 
+export const getCitizenByVoterId = (voterId, props) => async (dispatch, getState) => {
+    const ACCESS_TOKEN = getState().admin.token;
+    try {
+        dispatch({ type: types.START_LOADING_CITIZEN_DATA })
+        dispatch({ type: types.SET_LOADING_WINDOW_LOADING, payload: { mainLoadingWindowMessage: "Fetching Citizen from the database" } })
+        const response = await citizenClient.getCitizenByVoterId(ACCESS_TOKEN, voterId);
+        console.log(response);
+        dispatch({ type: types.COMPLETE_LOADING_CITIZEN_DATA, payload: { citizen: response.data } })
+        dispatch({ type: types.SET_LOADING_WINDOW_CLOSE })
+    } catch (e) {
+        console.log(e);
+        dispatch({ type: types.SET_LOADING_WINDOW_FAILURE, payload: { mainLoadingWindowMessage: e.response.data.message } })
+        dispatch({ type: types.FAIL_LOADING_CITIZEN_DATA })
+        props.history.push('/');
+    }
+}

@@ -28,6 +28,7 @@ const getCitizenByVoterId = async (ACCESS_TOKEN, voterId) => {
         responseEncoding: 'utf8',
     };
     const response = await axios.get(url, options);
+    console.log(response);
     return response;
 }
 

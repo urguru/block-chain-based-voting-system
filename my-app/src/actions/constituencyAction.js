@@ -29,3 +29,17 @@ export const addConstituency = (constituency, props) => async (dispatch, getStat
     }
 }
 
+export const getConstituencyById = (constituencyId, props) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: types.START_LOADING_CONSTITUENCY_DATA })
+        dispatch({ type: types.SET_LOADING_WINDOW_LOADING, payload: { mainLoadingWindowMessage: "Fetching Constituency from the database" } })
+        const response = await constituencyClient.getConstituencyById(constituencyId);
+        dispatch({ type: types.COMPLETE_LOADING_CONSTITUENCY_DATA, payload: { constituency: response.data } })
+        dispatch({ type: types.SET_LOADING_WINDOW_CLOSE })
+    } catch (e) {
+        dispatch({ type: types.SET_LOADING_WINDOW_FAILURE, payload: { mainLoadingWindowMessage: e.response.data.message } })
+        dispatch({ type: types.FAIL_LOADING_CONSTITUENCY_DATA })
+        props.history.push('/');
+    }
+}
+

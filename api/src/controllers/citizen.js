@@ -12,7 +12,7 @@ const getCitizenByVoterId = async (req, res, next) => {
 	logger.info(`CitizenController::getCitizenByVoterId Received request with voterId:${voterId}`);
 	try {
 		if (hasAnyRole(req.admin, [roles.CEC, roles.PBO])) {
-			const result = await citizenService.getCitizenByVoterId(voterId);
+			const result = await citizenService.getCitizenByVoterId(voterId, req.electionStatus);
 			res.status(OK).json(result);
 		} else {
 			throw ER_FORBIDDEN;

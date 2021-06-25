@@ -35,3 +35,16 @@ export const addPollingBooth = (pollingBooth, props) => async (dispatch, getStat
     }
 }
 
+export const getPollingBoothById = (pollingBoothId, props) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: types.START_LOADING_POLLINGBOOTH_DATA })
+        dispatch({ type: types.SET_LOADING_WINDOW_LOADING, payload: { mainLoadingWindowMessage: "Fetching Candidate Details from the database" } })
+        const response = await pollingBoothClient.getPollingBoothById(pollingBoothId);
+        dispatch({ type: types.COMPLETE_LOADING_POLLINGBOOTH_DATA, payload: { pollingBooth: response.data } })
+        dispatch({ type: types.SET_LOADING_WINDOW_CLOSE })
+    } catch (e) {
+        dispatch({ type: types.SET_LOADING_WINDOW_FAILURE, payload: { mainLoadingWindowMessage: e.response.data.message } })
+        dispatch({ type: types.FAIL_LOADING_POLLINGBOOTH_DATA })
+        props.history.push('/');
+    }
+}
