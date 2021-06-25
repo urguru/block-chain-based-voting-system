@@ -18,6 +18,10 @@ import AddPollingBooth from './pages/addPollingBooth';
 import AddCandidate from './pages/addCandidate';
 import AddAdmin from './pages/addAdmin';
 import UpdateElectionStatus from './pages/updateElectionStatusPage';
+import Constituency from './pages/constituencyDetailsPage';
+import PollingBooth from './pages/pollingBoothDetailsPage';
+import Citizen from './pages/citizenDetailsPage';
+import Candidate from './pages/candidateDetailsPage';
 
 import Error from './pages/errorPage';
 import HeaderComponent from './components/Header';
@@ -51,6 +55,10 @@ class App extends React.Component {
 					<Switch>
 						<Route exact path="/" component={Dashboard} />
 						<Route exact path="/login" component={AdminLogin} />
+						<Route path="/constituency/:constituencyId" component={Constituency} />
+						<Route path="/candidate/:candidateVoterId" component={Candidate} />
+						<Route path="/citizen/:voterId" component={Citizen} />
+						<Route path="/pollingBooth/:pollingBoothId" component={PollingBooth} />
 						<PrivateRoute exact path="/addConstituency" Component={AddConstituency} isLoggedIn={this.props.admin.isLoggedIn} />
 						<PrivateRoute exact path="/addCitizen" Component={AddCitizen} isLoggedIn={this.props.admin.isLoggedIn} />
 						<PrivateRoute exact path="/addPollingBooth" Component={AddPollingBooth} isLoggedIn={this.props.admin.isLoggedIn} />

@@ -4,9 +4,9 @@ const INITIAL_STATE = {
     isContractLoaded: false,
     contract: null,
     mainAccount: null,
-    constituencies: null,
-    candidates: null,
-    pollingBooths: null,
+    constituencies: [],
+    candidates: [],
+    pollingBooths: [],
     totalCitizens: null,
 };
 
