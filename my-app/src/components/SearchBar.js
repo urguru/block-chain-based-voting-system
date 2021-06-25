@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import _ from 'lodash';
@@ -9,14 +9,13 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import constants from '../common/constants';
-import { Link } from '@material-ui/core';
 
 const styles = {
     searchBox: {
         width: "600px",
         height: "150px",
         boxSizing: "border-box",
-        margin:"10px"
+        margin: "10px"
     },
     searchBoxTitle: {
         backgroundColor: "#bde0fe",
@@ -72,7 +71,7 @@ class SearchBar extends React.Component {
                     </div>
 
                     <Button type="submit" disabled={this.state.searchBoxContent.length == 0}
-                        href={this.props.link + this.state.searchBoxContent}
+                        to={this.props.link + this.state.searchBoxContent}
                         component={Link} size="large" variant="contained" color="primary" className={classes.Button}>
                         Search
                     </Button>

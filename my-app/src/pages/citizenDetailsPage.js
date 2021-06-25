@@ -18,7 +18,7 @@ class CitizenDetailsPage extends React.Component {
     componentDidMount() {
         const voterId = this.props.match.params.voterId;
         console.log(voterId);
-        this.props.getCitizenByVoterId(voterId);
+        this.props.getCitizenByVoterId(voterId, this.props);
     }
 
     render() {

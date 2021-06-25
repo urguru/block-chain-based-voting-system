@@ -4,7 +4,7 @@ import InformationCard from '../components/InformationCard';
 import SearchBar from '../components/SearchBar';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
-import { loadContractData } from '../actions/contractActions';
+import { loadContractData, contractNeedsReload } from '../actions/contractActions';
 
 const styles = {
     numbers: {
@@ -12,11 +12,11 @@ const styles = {
         flexWrap: "wrap",
         justifyContent: "space-around"
     },
-    searchBoxes:{
+    searchBoxes: {
         display: "flex",
         flexWrap: "wrap",
         justifyContent: "space-around",
-        margin:"10px 0"
+        margin: "10px 0"
     }
 }
 
@@ -26,7 +26,10 @@ class DashboardPage extends React.Component {
     }
 
     componentDidMount() {
-        this.props.loadContractData();
+        if (this.props.contract.isContractNeedsReload) {
+            this.props.loadContractData();
+        }
+        this.props.contractNeedsReload();
     }
 
     render() {
@@ -60,7 +63,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapActionsToProps = {
-    loadContractData
+    loadContractData,
+    contractNeedsReload
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(DashboardPage));

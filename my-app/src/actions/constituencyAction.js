@@ -39,6 +39,7 @@ export const getConstituencyById = (constituencyId, props) => async (dispatch, g
     } catch (e) {
         dispatch({ type: types.SET_LOADING_WINDOW_FAILURE, payload: { mainLoadingWindowMessage: e.response.data.message } })
         dispatch({ type: types.FAIL_LOADING_CONSTITUENCY_DATA })
+        dispatch({ type: types.CONTRACT_DOESNOT_NEED_RELOAD })
         props.history.push('/');
     }
 }

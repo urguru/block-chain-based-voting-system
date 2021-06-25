@@ -63,3 +63,6 @@ export const loadContractData = () => async (dispatch, getState) => {
     }
 }
 
+export const contractNeedsReload = () => (dispatch, getState) => {
+    dispatch({ type: types.CONTRACT_NEEDS_RELOAD });
+}

@@ -17,11 +17,12 @@ class CandidateDetailsPage extends React.Component {
 
     componentDidMount() {
         const candidateVoterId = this.props.match.params.candidateVoterId;
-        this.props.getCandidateByVoterId(candidateVoterId);
+        this.props.getCandidateByVoterId(candidateVoterId, this.props);
     }
 
     render() {
         const { classses } = this.props;
+        return `${JSON.stringify(this.props.candidate)}`;
     }
 }
 

@@ -17,7 +17,7 @@ class PollingBoothDetailsPage extends React.Component {
 
     componentDidMount() {
         const pollingBoothId = this.props.match.params.pollingBoothId;
-        this.props.getPollingBoothById(pollingBoothId)
+        this.props.getPollingBoothById(pollingBoothId, this.props)
     }
 
     render() {
