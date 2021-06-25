@@ -39,9 +39,15 @@ const AdminSchema = new Schema(
 			type: String,
 			trim: true,
 			required: true,
+			unique: true,
 		},
 	},
-	{ timestamps: true }
+	{
+		timestamps: true,
+		toObject: { virtuals: true },
+		toJSON: { virtuals: true },
+	},
+
 );
 
 AdminSchema.virtual("pollingBooth", {

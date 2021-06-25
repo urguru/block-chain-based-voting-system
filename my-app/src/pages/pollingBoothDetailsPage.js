@@ -34,7 +34,7 @@ class PollingBoothDetailsPage extends React.Component {
         const { pollingBooth,classes } = this.props;
         return (pollingBooth.isDataLoaded &&
             <div className={classes.pollingBoothDetails} >
-                <CandidateTable pollingBooth={pollingBooth.pollingBooth} />
+                <PollingBoothTable pollingBooth={pollingBooth.pollingBooth} />
             </div>);
     }
 }

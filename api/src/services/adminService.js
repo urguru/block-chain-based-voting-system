@@ -27,10 +27,8 @@ const loginAdmin = async (email, password) => {
 		id: admin.id,
 		role: admin.role,
 		email: admin.email,
+		pollingBoothId: admin.pollingBoothId
 	};
-	if (!_.isUndefined(admin.pollingBoothId)) {
-		payload.pollingBoothId = admin.pollingBoothId;
-	}
 	const jwtToken = generateAuthToken(payload);
 	return {
 		token: jwtToken,
