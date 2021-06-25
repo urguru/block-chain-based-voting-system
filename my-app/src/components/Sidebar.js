@@ -117,10 +117,6 @@ class Sidebar extends React.Component {
                             election.electionStatus.value != constants.electionStatus.COMPLETED.value
                             && admin.isLoggedIn && admin.admin.role == constants.roles.CEC
                             && this.generateListItem(electionLinkText, UpdateIcon, this.sideBarItemClickedEvent, '/updateElectionStatus'),
-                            // Cast Vote
-                            election.electionStatus.value == constants.electionStatus.STARTED.value
-                            && admin.isLoggedIn && admin.admin.role == constants.roles.CEC
-                            && this.generateListItem("Cast Vote", HowToVoteIcon, this.sideBarItemClickedEvent, '/castVote'),
                             // Logout Icon
                             admin.isLoggedIn && this.generateListItem("Logout", ExitToApp, this.adminLogoutFunction),
                         ]
