@@ -21,11 +21,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.bundle.js",
-    "build": "webpack",
     "dev": "nodemon ./server.js",
-    "deploy-contract": "node ./src/ethereum/deploy.js"
+    "compile-contract": "node ./src/ethereum/compile.js"
   },
   "author": "",
   "license": "ISC"
