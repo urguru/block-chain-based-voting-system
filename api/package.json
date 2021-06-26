@@ -24,7 +24,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.bundle.js",
     "build": "webpack",
-    "dev": "nodemon ./server.js"
+    "dev": "nodemon ./server.js",
+    "deploy-contract": "node ./src/ethereum/deploy.js"
   },
   "author": "",
   "license": "ISC"

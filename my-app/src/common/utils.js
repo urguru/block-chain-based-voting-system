@@ -26,12 +26,12 @@ export const getContestingConstituencyOfCandidate = (candidateVoterId, candidate
 export const calculateCandidateRank = (candidateVoterId, contestingConstituency, candidatesList, candidateVoteCountList) => {
     if (candidateVoterId == null || contestingConstituency == null || contestingConstituency.length == 0 || candidatesList == null
         || candidatesList.length == 0 || candidateVoteCountList == null || candidateVoteCountList.length == 0) {
-        return -1;
+            return -1;
     }
     const validCandidates = [];
     for (let i = 0; i < candidatesList.length; ++i) {
         if (candidatesList[i][1] == contestingConstituency) {
-            validCandidates.push([candidatesList[i], candidateVoteCountList[i]]);
+            validCandidates.push([candidatesList[i][0], candidateVoteCountList[i]]);
         }
     }
     if (validCandidates.length == 1) {

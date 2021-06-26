@@ -24,6 +24,7 @@ class CitizenCard extends React.Component {
         tableList.push(["Voted", citizen.hasVoted ? "Yes" : "No"]);
         if (citizen.hasVoted) {
             tableList.push(["VotedAt", citizen.timeVotedAt]);
+            tableList.push(["Location", citizen.pollingBooth.name]);
         }
         return tableList;
     }

@@ -41,6 +41,7 @@ class DashboardPage extends React.Component {
                 <div className={classes.numbers}>
                     <InformationCard value={_.toUpper(this.props.electionText)} text={"Election Status"} link={null} />
                     <InformationCard value={contract.totalCitizens} text={"Registered voters"} link={null} />
+                    <InformationCard value={contract.constituencies.map(a => parseInt(a[1])).reduce((s, p) => s + p)} text={"Votes Casted"} link={null} />
                     <InformationCard value={contract.constituencies.length} text={"Total constituencies"} link={null} />
                     <InformationCard value={contract.candidates.length} text={"Total candidates"} link={null} />
                     <InformationCard value={contract.pollingBooths.length} text={"Total polling booths"} link={null} />

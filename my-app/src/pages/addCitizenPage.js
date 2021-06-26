@@ -80,21 +80,23 @@ class AddCitizen extends React.Component {
                         Add Citizen
                     </Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
-                        <TextField id='name' name='name' type='text'  variant="outlined"  
-                        className={classes.textField} label="Name" value={this.state.name} onChange={this.handleChange} fullWidth />
-                        <TextField id='voterId' name='voterId' type='text'  variant="outlined"  label="Voter ID" 
-                        className={classes.textField} value={this.state.voterId} onChange={this.handleChange} fullWidth />
+                        <TextField id='name' name='name' type='text' variant="outlined"
+                            className={classes.textField} label="Name" value={this.state.name} onChange={this.handleChange} fullWidth />
+                        <TextField id='voterId' name='voterId' type='text' variant="outlined" label="Voter ID"
+                            className={classes.textField} value={this.state.voterId} onChange={this.handleChange} fullWidth />
                         {/* Gender */}
                         <Autocomplete id="gender"
                             options={_.values(constants.gender)} name="gender"
                             getOptionLabel={(option) => option}
                             onChange={(e, newValue) => this.setState({ gender: newValue })}
-                            renderInput={(params) => <TextField  variant="outlined" className={classes.textField} {...params} label="Gender" fullWidth />} />
+                            onInputChange={(e, newValue) => this.setState({ gender: newValue })}
+                            renderInput={(params) => <TextField variant="outlined" className={classes.textField} {...params} label="Gender" fullWidth />} />
                         {/* Constituency ID */}
                         <Autocomplete id="constituencyId"
                             options={_.values(this.props.contract.constituencies.map(item => item[0]))} name="constituencyId"
                             getOptionLabel={(option) => option}
                             onChange={(e, newValue) => this.setState({ constituencyId: newValue })}
+                            onInputChange={(e, newValue) => this.setState({ constituencyId: newValue })}
                             renderInput={(params) => <TextField className={classes.textField} variant="outlined" {...params} label="Constituency ID" fullWidth />} />
                         <Button type="submit" variant="contained" color="primary" className={classes.Button}>
                             Add Citizen

@@ -107,7 +107,7 @@ class Sidebar extends React.Component {
                             && this.generateListItem("Add polling booth", LocationOnIcon, this.sideBarItemClickedEvent, '/addPollingBooth'),
                             // Add Citizen
                             election.electionStatus.value == constants.electionStatus.NOT_STARTED.value
-                            && admin.isLoggedIn
+                            && admin.isLoggedIn && admin.admin.role == constants.roles.CEC
                             && this.generateListItem("Add citizen", PersonAdd, this.sideBarItemClickedEvent, '/addCitizen'),
                             // Add Candidate
                             election.electionStatus.value == constants.electionStatus.NOT_STARTED.value

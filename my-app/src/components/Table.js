@@ -13,7 +13,7 @@ const styles = {
         width: "400px",
         flexDirection: "column",
         boxSizing: "border-box",
-        margin:"20px 10px"
+        margin: "20px 10px"
     },
     tableText: {
         margin: "10px 10px",

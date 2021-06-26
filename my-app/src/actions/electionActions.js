@@ -10,11 +10,11 @@ export const updateElectionStatus = (electionStatus, props) => async (dispatch, 
         try {
             dispatch({ type: types.SET_LOADING_WINDOW_LOADING, payload: { mainLoadingWindowMessage: "Updating election state on the block chain" } })
             if (electionStatus == constants.electionStatus.STARTED.text) {
-                await contract.methods.startElection().estimateGas({ from: mainAccount });
-                await contract.methods.startElection().send({ from: mainAccount });
+                const gas = await contract.methods.startElection().estimateGas({ from: mainAccount });
+                await contract.methods.startElection().send({ from: mainAccount, gas });
             } else if (electionStatus == constants.electionStatus.COMPLETED.text) {
-                await contract.methods.endElection().estimateGas({ from: mainAccount });
-                await contract.methods.endElection().send({ from: mainAccount });
+                const gas = await contract.methods.endElection().estimateGas({ from: mainAccount });
+                await contract.methods.endElection().send({ from: mainAccount, gas });
             } else {
                 return;
             }

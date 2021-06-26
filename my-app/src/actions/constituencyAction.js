@@ -9,8 +9,8 @@ export const addConstituency = (constituency, props) => async (dispatch, getStat
     try {
         try {
             dispatch({ type: types.SET_LOADING_WINDOW_LOADING, payload: { mainLoadingWindowMessage: "Adding constituency on blockchain network" } })
-            await contract.methods.addConstituency(constituency.constituencyId).estimateGas({ from: mainAccount });
-            await getState().contract.contract.methods.addConstituency(constituency.constituencyId).send({ from: mainAccount });
+            const gas = await contract.methods.addConstituency(constituency.constituencyId).estimateGas({ from: mainAccount });
+            await getState().contract.contract.methods.addConstituency(constituency.constituencyId).send({ from: mainAccount, gas });
             dispatch({ type: types.SET_LOADING_WINDOW_SUCCESS, payload: { mainLoadingWindowMessage: "Successfully added constituency to blockchain network" } })
         } catch (e) {
             const errMessage = JSON.parse(e.message.substr(e.message.indexOf("{"))).originalError.message;

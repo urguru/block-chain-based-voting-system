@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { getCitizenByVoterId,castVote } from '../actions/citizenActions';
+import { getCitizenByVoterId, castVote } from '../actions/citizenActions';
 import CitizenTable from '../components/Citizen';
 import CandidateTable from '../components/Candidate';
 import constants from '../common/constants';
@@ -30,7 +30,7 @@ const styles = {
         flexWrap: "wrap",
         alignItems: "center",
     },
-    candidateBox:{
+    candidateBox: {
         display: "flex",
         boxSizing: "border-box",
         margin: "20px",
@@ -55,7 +55,7 @@ class CitizenDetailsPage extends React.Component {
         this.props.getCitizenByVoterId(voterId, this.props);
     }
 
-    castVote=()=>{
+    castVote = () => {
         this.props.castVote()
     }
 
@@ -65,14 +65,15 @@ class CitizenDetailsPage extends React.Component {
                 <div>
                     <CandidateTable candidate={candidate} />
                 </div>
-                <div>
-                {/* {this.props.electionStatus.text == constants.electionStatus.STARTED.text &&
-                    this.props.citizen.citizen.hasVoted && */}
-                    <Button size="large" variant="contained" color="primary"
-                    onClick={()=>this.props.castVote(candidate.voterId,this.props.citizen.citizen.voterId)}>
-                        Vote For Candidate
-                    </Button>
-                    </div>
+
+                {this.props.electionStatus.text == constants.electionStatus.STARTED.text &&
+                    !this.props.citizen.citizen.hasVoted &&
+                    <div>
+                        <Button size="large" variant="contained" color="primary"
+                            onClick={() => this.props.castVote(candidate.voterId, this.props.citizen.citizen.voterId, this.props)}>
+                            Vote For Candidate
+                        </Button>
+                    </div>}
             </Card>
         )
     }
@@ -84,7 +85,7 @@ class CitizenDetailsPage extends React.Component {
                 <CitizenTable citizen={citizen.citizen} />
             </div>
             <div className={classes.candidatesList}>
-                {citizen.citizen.constituency.candidates.map(candidate=>this.getPresentableCandidate(candidate))}
+                {citizen.citizen.constituency.candidates.map(candidate => this.getPresentableCandidate(candidate))}
             </div>
         </div>);
     }

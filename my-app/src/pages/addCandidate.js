@@ -73,12 +73,13 @@ class AddCandidate extends React.Component {
                     </Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
                         <TextField id='voterId' name='voterId' type='text' label="Voter ID" variant="outlined"
-                         className={classes.textField} value={this.state.voterId} onChange={this.handleChange} fullWidth />
+                            className={classes.textField} value={this.state.voterId} onChange={this.handleChange} fullWidth />
                         {/* Constituency ID */}
                         <Autocomplete id="contestingConstituencyId"
                             options={_.values(this.props.contract.constituencies.map(item => item[0]))} name="contestingConstituencyId"
                             getOptionLabel={(option) => option}
                             onChange={(e, newValue) => this.setState({ contestingConstituencyId: newValue })}
+                            onInputChange={(e, newValue) => this.setState({ contestingConstituencyId: newValue })}
                             renderInput={(params) => <TextField className={classes.textField} variant="outlined" {...params} label="Contesting Constituency ID" fullWidth />} />
                         <Button type="submit" variant="contained" color="primary" className={classes.Button}>
                             Add Candidate

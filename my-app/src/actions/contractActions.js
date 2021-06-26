@@ -21,20 +21,18 @@ export const loadContract = () => async (dispatch, getState) => {
             contract.methods.getAllCandidates().call(),
             contract.methods.getAllPollingBooths().call(),
             contract.methods.getCountOfCitizens().call()]);
-        let voteCountArray=[];
-        if (electionStatus == 2) {
-            voteCountArray = await contract.methods.getAllVotes().call();
-        }
-        console.log(electionStatus, constituencies, candidates, pollingBooths, totalCitizens);
+        let voteCountArray = [];
         if (electionStatus == 0) {
             dispatch({ type: types.SET_ELECTION_STATUS_NOT_STARTED })
         } else if (electionStatus == 1) {
             dispatch({ type: types.SET_ELECTION_STATUS_STARTED })
         } else if (electionStatus == 2) {
+            voteCountArray = await Promise.all(candidates.map(candidate => contract.methods.getVotesForCandidate(candidate[0]).call()));
+            voteCountArray = voteCountArray.map(i => parseInt(i));
             dispatch({ type: types.SET_ELECTION_STATUS_COMPLETED })
         }
         dispatch({ type: types.SET_LOADING_WINDOW_SUCCESS, payload: { mainLoadingWindowMessage: "Connected to the network" } })
-        dispatch({ type: types.LOAD_CONTRACT, payload: { contract, mainAccount, electionStatus, constituencies, candidates, pollingBooths, totalCitizens,voteCountArray } })
+        dispatch({ type: types.LOAD_CONTRACT, payload: { contract, mainAccount, electionStatus, constituencies, candidates, pollingBooths, totalCitizens, voteCountArray } })
     } catch (e) {
         dispatch({ type: types.LOAD_CONTRACT_FAILED });
     }
@@ -51,16 +49,18 @@ export const loadContractData = () => async (dispatch, getState) => {
             contract.methods.getAllCandidates().call(),
             contract.methods.getAllPollingBooths().call(),
             contract.methods.getCountOfCitizens().call()]);
-        console.log(electionStatus, constituencies, candidates, pollingBooths, totalCitizens);
+        let voteCountArray = [];
         if (electionStatus == 0) {
             dispatch({ type: types.SET_ELECTION_STATUS_NOT_STARTED })
         } else if (electionStatus == 1) {
             dispatch({ type: types.SET_ELECTION_STATUS_STARTED })
         } else if (electionStatus == 2) {
+            voteCountArray = await Promise.all(candidates.map(candidate => contract.methods.getVotesForCandidate(candidate[0]).call()));
+            voteCountArray = voteCountArray.map(i => parseInt(i));
             dispatch({ type: types.SET_ELECTION_STATUS_COMPLETED })
         }
         dispatch({ type: types.SET_LOADING_WINDOW_SUCCESS, payload: { mainLoadingWindowMessage: "Completed loading the contract data" } })
-        dispatch({ type: types.LOAD_CONTRACT, payload: { contract, mainAccount, electionStatus, constituencies, candidates, pollingBooths, totalCitizens } })
+        dispatch({ type: types.LOAD_CONTRACT, payload: { contract, mainAccount, electionStatus, constituencies, candidates, pollingBooths, totalCitizens, voteCountArray } })
     } catch (e) {
         dispatch({ type: types.SET_LOADING_WINDOW_SUCCESS, payload: { mainLoadingWindowMessage: "Error Loading the contract data" } })
         dispatch({ type: types.LOAD_CONTRACT_DATA_FAILED });

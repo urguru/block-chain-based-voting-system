@@ -8,8 +8,8 @@ export const addCandidate = (candidate, props) => async (dispatch, getState) => 
     try {
         try {
             dispatch({ type: types.SET_LOADING_WINDOW_LOADING, payload: { mainLoadingWindowMessage: "Adding candidate to the blockchain network" } })
-            await contract.methods.addCandidate(candidate.voterId, candidate.contestingConstituencyId).estimateGas({ from: mainAccount });
-            await getState().contract.contract.methods.addCandidate(candidate.voterId, candidate.contestingConstituencyId).send({ from: mainAccount });
+            const gas = await contract.methods.addCandidate(candidate.voterId, candidate.contestingConstituencyId).estimateGas({ from: mainAccount });
+            await contract.methods.addCandidate(candidate.voterId, candidate.contestingConstituencyId).send({ from: mainAccount, gas });
             dispatch({ type: types.SET_LOADING_WINDOW_SUCCESS, payload: { mainLoadingWindowMessage: "Successfully added candidate to the blockchain network" } })
         } catch (e) {
             const errMessage = JSON.parse(e.message.substr(e.message.indexOf("{"))).originalError.message;

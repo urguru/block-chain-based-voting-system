@@ -14,8 +14,8 @@ export const addPollingBooth = (pollingBooth, props) => async (dispatch, getStat
     try {
         try {
             dispatch({ type: types.SET_LOADING_WINDOW_LOADING, payload: { mainLoadingWindowMessage: "Adding polling booth on the blockchain network" } })
-            await contract.methods.whitelistPollingBooth(pollingBooth.pollingBoothId).estimateGas({ from: mainAccount });
-            await contract.methods.whitelistPollingBooth(pollingBooth.pollingBoothId).send({ from: mainAccount });
+            const gas = await contract.methods.whitelistPollingBooth(pollingBooth.pollingBoothId).estimateGas({ from: mainAccount });
+            await contract.methods.whitelistPollingBooth(pollingBooth.pollingBoothId).send({ from: mainAccount, gas });
             dispatch({ type: types.SET_LOADING_WINDOW_SUCCESS, payload: { mainLoadingWindowMessage: "Successfully added polling booth to the blockchain network" } })
         } catch (e) {
             const errMessage = JSON.parse(e.message.substr(e.message.indexOf("{"))).originalError.message;

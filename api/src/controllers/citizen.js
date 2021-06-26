@@ -26,7 +26,7 @@ const createCitizen = async (req, res, next) => {
 	const { admin } = req;
 	logger.info(`CitizenController::createCitizen Received request with the following body:${JSON.stringify(req.body)}`);
 	try {
-		if (hasAnyRole(admin, [roles.CEC, roles.PBO])) {
+		if (hasAnyRole(admin, [roles.CEC])) {
 			const result = await citizenService.createCitizen(req.body);
 			res.status(CREATED).json(result);
 		} else {
