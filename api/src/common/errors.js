@@ -124,6 +124,12 @@ const ER_INVALID_POLLINGBOOTH_ID = new AppError({
 	statusCode: BAD_REQUEST,
 });
 
+const ER_POLLINGBOOTH_ALREADY_LINKED = new AppError({
+	name: "ER_POLLINGBOOTH_ALREADY_LINKED",
+	message: "The given pollingBoothId is already linked to another admin",
+	statusCode: BAD_REQUEST,
+})
+
 module.exports = {
 	ER_FORBIDDEN,
 	ER_AUTHENTICATION_INFO_NOT_FOUND,
@@ -144,4 +150,5 @@ module.exports = {
 	ER_ELECTION_NOT_IN_COMPLETED_STATE,
 	ER_ADMIN_WTH_EMAIL_ID_ALREADY_EXISTS,
 	ER_INVALID_POLLINGBOOTH_ID,
+	ER_POLLINGBOOTH_ALREADY_LINKED,
 };
